@@ -1,7 +1,7 @@
 package conf
 
 import (
-	"pkg/log"
+	"github.com/better-go/pkg/log"
 
 	"github.com/micro/go-micro/v2/config"
 	"github.com/micro/go-micro/v2/config/encoder/toml"

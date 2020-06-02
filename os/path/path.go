@@ -6,7 +6,7 @@ import (
 	"path/filepath"
 	"strings"
 
-	"pkg/log"
+	"github.com/better-go/pkg/log"
 )
 
 var (

@@ -1,4 +1,4 @@
-module pkg
+module github.com/better-go/pkg
 
 go 1.13
 

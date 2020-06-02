@@ -1,7 +1,7 @@
 package errors
 
 import (
-	"pkg/log"
+	"github.com/better-go/pkg/log"
 )
 
 // 重大 error, 需要主动 panic 的:

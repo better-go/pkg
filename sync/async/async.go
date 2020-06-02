@@ -6,8 +6,8 @@ import (
 	"runtime"
 	"sync"
 
-	pkgCtx "pkg/context"
-	"pkg/log"
+	pkgCtx "github.com/better-go/pkg/context"
+	"github.com/better-go/pkg/log"
 )
 
 var (

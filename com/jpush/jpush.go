@@ -18,7 +18,7 @@ ref: https://docs.jiguang.cn/jpush/server/push/rest_api_v3_push/
 */
 
 import (
-	"pkg/log"
+	"github.com/better-go/pkg/log"
 
 	pushSDK "github.com/ylywyn/jpush-api-go-client"
 )

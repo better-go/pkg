@@ -3,8 +3,8 @@ package conf
 import (
 	path2 "path"
 
-	"pkg/log"
-	"pkg/os/path"
+	"github.com/better-go/pkg/log"
+	"github.com/better-go/pkg/os/path"
 )
 
 var (
