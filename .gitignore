@@ -1,3 +1,5 @@
+# Created by .ignore support plugin (hsz.mobi)
+### Go template
 # Binaries for programs and plugins
 *.exe
 *.exe~
@@ -13,3 +15,34 @@
 
 # Dependency directories (remove the comment below to include it)
 # vendor/
+
+################################################################################################################
+#  Add 2020:
+#
+#   ref:
+#       - https://github.com/caddyserver/caddy/blob/master/.gitignore
+#
+################################################################################################################
+
+# macOS
+.DS_Store
+
+# IDE: Goland
+.idea/
+
+# IDE: VS Code
+.vscode/
+
+# go mod
+vendor/
+
+tmp/
+*.log
+*.pb.go
+*.pb.micro.go
+
+# artifacts from pprof tooling
+*.prof
+
+# goreleaser artifacts
+dist/
