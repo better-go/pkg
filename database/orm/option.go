@@ -176,7 +176,7 @@ func (m *Options) autoCreatedFields(scope *gorm.Scope) {
 		// ts:
 		tsFields := []string{
 			m.CreatedTsName,
-			//m.UpdatedTsName,
+			m.UpdatedTsName,
 			//m.DeletedTsName,
 		}
 
