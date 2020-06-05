@@ -55,6 +55,9 @@ type Options struct {
 	IdleNum     int            // pool
 	IdleTimeout xtime.Duration // connect max life time.
 
+	// option for table:
+	IsSingularTable bool // orm 默认表名: 单数
+
 	// option item:
 	CreatedTsName string
 	UpdatedTsName string
