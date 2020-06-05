@@ -190,9 +190,9 @@ func (m *Options) autoCreatedFields(scope *gorm.Scope) {
 		}
 
 		// soft delete:
-		if updatedAtField, ok := scope.FieldByName(m.IsDeletedName); ok {
-			if updatedAtField.IsBlank {
-				updatedAtField.Set(false)
+		if isDeleted, ok := scope.FieldByName(m.IsDeletedName); ok {
+			if isDeleted.IsBlank {
+				isDeleted.Set(false)
 			}
 		}
 	}
