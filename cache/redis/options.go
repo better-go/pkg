@@ -3,6 +3,7 @@ package redis
 import (
 	"time"
 
+	timeEx "github.com/better-go/pkg/time"
 	sdk1 "github.com/go-redis/redis/v8"
 )
 
@@ -19,14 +20,14 @@ type Options struct {
 	//
 	Name  string // redis alias name, for trace
 	Proto string //
-	Addr  string
+	Addr  string // host = ip + port
 	Auth  string
 
 	//
-	DialTimeout  time.Duration
-	ReadTimeout  time.Duration
-	WriteTimeout time.Duration
-	SlowLog      time.Duration
+	DialTimeout  timeEx.Duration // connect max life time.
+	ReadTimeout  timeEx.Duration // connect max life time.
+	WriteTimeout timeEx.Duration // connect max life time.
+	SlowLog      timeEx.Duration // connect max life time.
 	PoolSize     int
 
 	//
@@ -56,13 +57,13 @@ func (m *Options) Init(opts ...OptionFunc) {
 		m.Addr = defaultAddr
 	}
 	if m.DialTimeout <= 0 {
-		m.DialTimeout = defaultDialTimeout
+		m.DialTimeout = timeEx.Duration(defaultDialTimeout)
 	}
 	if m.ReadTimeout <= 0 {
-		m.ReadTimeout = defaultReadTimeout
+		m.ReadTimeout = timeEx.Duration(defaultReadTimeout)
 	}
 	if m.WriteTimeout <= 0 {
-		m.WriteTimeout = defaultWriteTimeout
+		m.WriteTimeout = timeEx.Duration(defaultWriteTimeout)
 	}
 	if m.PoolSize <= 0 {
 		m.PoolSize = defaultPoolSize
@@ -82,9 +83,9 @@ func (m *Options) ToOption1() *sdk1.Options {
 		Addr:         m.Addr,
 		Password:     m.Auth,
 		DB:           0,
-		DialTimeout:  m.DialTimeout,
-		ReadTimeout:  m.ReadTimeout,
-		WriteTimeout: m.WriteTimeout,
+		DialTimeout:  time.Duration(m.DialTimeout),
+		ReadTimeout:  time.Duration(m.ReadTimeout),
+		WriteTimeout: time.Duration(m.WriteTimeout),
 		PoolSize:     m.PoolSize,
 	}
 }
