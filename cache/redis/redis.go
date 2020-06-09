@@ -22,6 +22,11 @@ go 可选包:
 import (
 	sdk1 "github.com/go-redis/redis/v7"
 	sdk2 "github.com/gomodule/redigo/redis"
+	"github.com/pkg/errors"
+)
+
+var (
+	errClose = errors.New("redis conn close error:")
 )
 
 // redis client:
@@ -55,4 +60,14 @@ func (m *Client) V1() *sdk1.Client {
 
 func (m *Client) V2() *sdk2.Pool {
 	return m.v2
+}
+
+func (m *Client) Close() error {
+	err1 := m.v1.Close()
+	err2 := m.v2.Close()
+
+	if err1 != nil || err2 != nil {
+		return errors.Wrapf(errClose, "err1=%v, err2=%v", err1, err2)
+	}
+	return nil
 }
