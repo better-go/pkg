@@ -39,10 +39,10 @@ type Options struct {
 	// Close items after remaining item for this duration. If the value
 	// is zero, then item items are not closed. Applications should set
 	// the timeout to a value less than the server's timeout.
-	IdleTimeout time.Duration
+	IdleTimeout timeEx.Duration
 	// If WaitTimeout is set and the pool is at the Active limit, then Get() waits WatiTimeout
 	// until a item to be returned to the pool before returning.
-	WaitTimeout time.Duration
+	WaitTimeout timeEx.Duration
 	// If WaitTimeout is not set, then Wait effects.
 	// if Wait is set true, then wait until ctx timeout, or default flase and return directly.
 	Wait bool
