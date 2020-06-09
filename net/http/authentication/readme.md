@@ -14,6 +14,9 @@
 ## auth:
 
 - https://github.com/qor/auth
+- https://github.com/dghubble/gologin
+- https://github.com/go-pkgz/auth
+- https://github.com/golang/oauth2
 
 
 ## keywords:
