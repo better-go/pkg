@@ -3,6 +3,7 @@ package redis
 import (
 	"context"
 	"testing"
+	"time"
 )
 
 func TestNewRedis(t *testing.T) {
@@ -39,4 +40,23 @@ func TestNewClient(t *testing.T) {
 	ret, err = cli.V1().Ping(ctx).Result()
 	t.Log("ping:", ret, err)
 
+}
+
+func TestExpiration_Days(t *testing.T) {
+	exp := NewExpiration()
+	in := []uint32{
+		0,
+		1,
+		3,
+		5,
+	}
+
+	t.Log("duration test:")
+
+	for _, item := range in {
+
+		// wait:
+		time.Sleep(exp.Seconds(item))
+		t.Logf("wait [%v]s,  see me...", item)
+	}
 }
