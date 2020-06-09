@@ -3,10 +3,9 @@ package orm
 import (
 	"time"
 
-	xtime "github.com/better-go/pkg/time"
-
+	"github.com/better-go/pkg/log"
+	timeEx "github.com/better-go/pkg/time"
 	"github.com/jinzhu/gorm"
-	"github.com/micro/go-micro/v2/util/log"
 )
 
 /*
@@ -50,10 +49,10 @@ const (
 // db conn option:
 type Options struct {
 	Dialect     string
-	DSN         string         // data source name.
-	ActiveNum   int            // pool
-	IdleNum     int            // pool
-	IdleTimeout xtime.Duration // connect max life time.
+	DSN         string          // data source name.
+	ActiveNum   int             // pool
+	IdleNum     int             // pool
+	IdleTimeout timeEx.Duration // connect max life time.
 
 	// option for table:
 	IsSingularTable bool // orm 默认表名: 单数
@@ -70,7 +69,7 @@ type OptionFunc func(*Options)
 
 //
 func NewOptions(opts ...OptionFunc) Options {
-	var expire xtime.Duration
+	var expire timeEx.Duration
 	expire.UnmarshalText([]byte(DefaultIdleExpire))
 
 	// default:
@@ -110,7 +109,7 @@ func DSN(dsn string) OptionFunc {
 }
 
 // 连接参数定制:
-func ConnParams(activeNum int, idleNum int, idleExpire xtime.Duration) OptionFunc {
+func ConnParams(activeNum int, idleNum int, idleExpire timeEx.Duration) OptionFunc {
 	return func(options *Options) {
 		if activeNum > 0 {
 			options.ActiveNum = activeNum
