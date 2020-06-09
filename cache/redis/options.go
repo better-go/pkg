@@ -3,7 +3,7 @@ package redis
 import (
 	"time"
 
-	sdk1 "github.com/go-redis/redis/v7"
+	sdk1 "github.com/go-redis/redis/v8"
 )
 
 const (

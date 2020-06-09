@@ -1,24 +1,26 @@
 package redis
 
 import (
+	"context"
 	"testing"
 )
 
 func TestNewRedis(t *testing.T) {
 	cli := NewRedis(&Options{})
+	ctx := context.Background()
 
 	// client list:
-	ret, err := cli.ClientList().Result()
+	ret, err := cli.ClientList(ctx).Result()
 	t.Log("client list:", ret, err)
 
 	// set:
-	cli.Set("hello", "world", 0)
+	cli.Set(ctx, "hello", "world", 0)
 	// get:
-	ret, err = cli.Get("hello").Result()
+	ret, err = cli.Get(ctx, "hello").Result()
 	t.Log("hello:", ret)
 
 	// ping:
-	ret, err = cli.Ping().Result()
+	ret, err = cli.Ping(ctx).Result()
 	t.Log("ping:", ret, err)
 
 	// options:
@@ -27,13 +29,14 @@ func TestNewRedis(t *testing.T) {
 
 func TestNewClient(t *testing.T) {
 	cli := NewClient(&Options{})
+	ctx := context.Background()
 
 	// client list:
-	ret, err := cli.V1().ClientList().Result()
+	ret, err := cli.V1().ClientList(ctx).Result()
 	t.Log("client list:", ret, err)
 
 	// ping:
-	ret, err = cli.V1().Ping().Result()
+	ret, err = cli.V1().Ping(ctx).Result()
 	t.Log("ping:", ret, err)
 
 }

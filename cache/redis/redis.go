@@ -16,11 +16,12 @@ go 可选包:
 		- 部分大厂选择, 生产验证可靠
 	- https://github.com/go-redis/redis
 		- 接口设计友好
+		- 大量用法示例: https://github.com/go-redis/redis/blob/master/example_test.go
 
 */
 
 import (
-	sdk1 "github.com/go-redis/redis/v7"
+	sdk1 "github.com/go-redis/redis/v8"
 	sdk2 "github.com/gomodule/redigo/redis"
 	"github.com/pkg/errors"
 )
