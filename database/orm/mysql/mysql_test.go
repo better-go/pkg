@@ -32,12 +32,13 @@ func TestNewMySQL(t *testing.T) {
 	objList2 := make([]*testSchema, 0, 0)
 
 	db := NewMySQL(&orm.Options{
-		Dialect: "",
-		DSN:     testDsn,
+		Dialect:     "",
+		DSN:         testDsn,
+		IsDebugMode: true, // show raw log
 	})
 
 	t.Logf("stats: %+v", db.DB().Stats())
-	t.Log(db.LogMode(true))
+	//t.Log(db.LogMode(true))
 
 	//
 	// orm query:

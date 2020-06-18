@@ -29,12 +29,12 @@ func NewMySQL(opts *orm.Options) *gorm.DB {
 		orm.DSN(opts.DSN),
 		orm.ConnParams(opts.ActiveNum, opts.IdleNum, opts.IdleTimeout),
 		orm.TableFields(opts.CreatedTsName, opts.UpdatedTsName, opts.DeletedTsName, opts.IsDeletedName),
+		orm.SingularTable(opts.IsSingularTable), // 单数
+		orm.DebugMode(opts.IsDebugMode),         // debug log
 	)
 
 	// conn:
 	conn := opt.DBConn()
-	// db 默认表名复数: https://gorm.io/zh_CN/docs/conventions.html
-	conn.SingularTable(opts.IsSingularTable)
 	return conn
 }
 

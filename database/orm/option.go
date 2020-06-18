@@ -55,7 +55,8 @@ type Options struct {
 	IdleTimeout timeEx.Duration // connect max life time.
 
 	// option for table:
-	IsSingularTable bool // orm 默认表名: 单数
+	IsSingularTable bool // db 表名: 单数/复数
+	IsDebugMode     bool // log switch: show raw sql
 
 	// option item:
 	CreatedTsName string
@@ -74,10 +75,12 @@ func NewOptions(opts ...OptionFunc) Options {
 
 	// default:
 	opt := Options{
-		Dialect:     DefaultDialect,
-		ActiveNum:   DefaultActiveNum,
-		IdleNum:     DefaultIdleNum,
-		IdleTimeout: expire,
+		Dialect:         DefaultDialect,
+		ActiveNum:       DefaultActiveNum,
+		IdleNum:         DefaultIdleNum,
+		IdleTimeout:     expire,
+		IsSingularTable: false, // 默认复数
+		IsDebugMode:     false, // 默认关闭 show raw sql
 		// table fields:
 		CreatedTsName: createdAt,
 		UpdatedTsName: updatedAt,
@@ -105,6 +108,20 @@ func Dialect(dialect string) OptionFunc {
 func DSN(dsn string) OptionFunc {
 	return func(options *Options) {
 		options.DSN = dsn
+	}
+}
+
+// 表名单数:
+func SingularTable(active bool) OptionFunc {
+	return func(options *Options) {
+		options.IsSingularTable = active
+	}
+}
+
+// log 模式:
+func DebugMode(active bool) OptionFunc {
+	return func(options *Options) {
+		options.IsDebugMode = active
 	}
 }
 
@@ -154,8 +171,10 @@ func (m *Options) DBConn() *gorm.DB {
 	conn.DB().SetMaxIdleConns(m.IdleNum)
 	conn.DB().SetMaxOpenConns(m.ActiveNum)
 	conn.DB().SetConnMaxLifetime(time.Duration(m.IdleTimeout))
-	// debug mode:
-	//conn.Debug()
+	// debug mode: log show raw sql
+	conn.LogMode(m.IsDebugMode)
+	// db 表名: 使用单数形式 https://gorm.io/zh_CN/docs/conventions.html
+	conn.SingularTable(m.IsSingularTable)
 	// log:
 	//conn.SetLogger(logAdapter{})
 
