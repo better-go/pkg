@@ -40,7 +40,7 @@ func TestNewMySQL(t *testing.T) {
 	})
 
 	t.Logf("stats: %+v", db.DB().Stats())
-	//t.Log(db.LogMode(true))
+	//t.Log(v1.LogMode(true))
 
 	//
 	// orm query:
@@ -82,4 +82,50 @@ func TestNewMySQL(t *testing.T) {
 func TestZeroTimestamp(t *testing.T) {
 	ts, _ := time.Parse("1/2/2006 15:04:05", "01/01/0001 00:00:00")
 	t.Logf("zero time: %v", ts)
+}
+
+func TestCreate(t *testing.T) {
+	db := NewMySQL(&orm.Options{
+		Dialect:     "",
+		DSN:         testDsn,
+		IsDebugMode: true, // show raw log
+	})
+
+	req := &testSchema{
+
+		Mid:          33,
+		OrderNo:      "202",
+		ProductTitle: "test create",
+	}
+
+	t.Logf("%v", req)
+
+	db.AutoMigrate(&testSchema{})
+
+	db.Create(req)
+
+}
+
+func TestNewClient(t *testing.T) {
+	client := NewClient(&orm.Options{
+		Dialect:     "",
+		DSN:         testDsn,
+		IsDebugMode: true, // show raw log
+	})
+
+	// use v2 v1:
+	db := client.DBv2()
+	db.Debug()
+
+	req := &testSchema{
+
+		Mid:          33,
+		OrderNo:      "214",
+		ProductTitle: "test create",
+	}
+
+	t.Logf("%v", req)
+
+	db.AutoMigrate(&testSchema{})
+	db.Create(req)
 }
