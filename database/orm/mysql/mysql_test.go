@@ -34,7 +34,7 @@ func TestNewMySQL(t *testing.T) {
 	db := NewMySQL(&orm.Options{
 		Dialect:     "",
 		DSN:         testDsn,
-		IsDebugMode: true, // show raw log
+		IsDebugMode: false, // show raw log
 	})
 
 	t.Logf("stats: %+v", db.DB().Stats())
@@ -46,6 +46,8 @@ func TestNewMySQL(t *testing.T) {
 
 	// first:
 	db.First(&obj1)
+	// show raw sql 2:
+	db.Debug().First(&obj1)
 	t.Logf("orm query: %+v", obj1)
 
 	//
