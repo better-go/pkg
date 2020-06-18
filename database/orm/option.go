@@ -210,7 +210,8 @@ func (m *Options) autoCreatedFields(scope *gorm.Scope) {
 		// soft delete:
 		if isDeleted, ok := scope.FieldByName(m.IsDeletedName); ok {
 			if isDeleted.IsBlank {
-				isDeleted.Set(false)
+				zeroTs := zeroTime() // default zero time
+				isDeleted.Set(zeroTs)
 			}
 		}
 	}
@@ -224,6 +225,13 @@ func (m *Options) autoUpdatedFields(scope *gorm.Scope) {
 }
 
 /////////////////////////////////////////////////////////////////////////////////////
+
+// deleted_at = default zeroTime [zero time: 0001-01-01 00:00:00 +0000 UTC]
+func zeroTime() time.Time {
+	// zero time: 0001-01-01 00:00:00 +0000 UTC
+	ts, _ := time.Parse("1/2/2006 15:04:05", "01/01/0001 00:00:00")
+	return ts
+}
 
 //
 // log for orm:

@@ -1,8 +1,10 @@
 package mysql
 
 import (
-	"github.com/better-go/pkg/database/orm"
 	"testing"
+	"time"
+
+	"github.com/better-go/pkg/database/orm"
 )
 
 const (
@@ -75,4 +77,9 @@ func TestNewMySQL(t *testing.T) {
 	for _, item := range objList1 {
 		t.Logf("raw sql query many way2: %+v", item)
 	}
+}
+
+func TestZeroTimestamp(t *testing.T) {
+	ts, _ := time.Parse("1/2/2006 15:04:05", "01/01/0001 00:00:00")
+	t.Logf("zero time: %v", ts)
 }
