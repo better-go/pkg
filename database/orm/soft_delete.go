@@ -32,13 +32,13 @@ func (n DeletedAt) Value() (driver.Value, error) {
 //
 // 软删除-查询子句:
 //    - 自动补全
-//    - where (deleted_at > "1970-01-02 00:00:00" )
+//    - where (deleted_at <= "1970-01-02 00:00:00" )
 //
 func (DeletedAt) QueryClauses() []clause.Interface {
 	return []clause.Interface{
 		clause.Where{Exprs: []clause.Expression{
-			// > zeroTime
-			clause.Gt{
+			// <= zeroTime
+			clause.Lte{
 				Column: clause.Column{Table: clause.CurrentTable, Name: "deleted_at"},
 				Value:  zeroTime(), // 默认零值
 			},
