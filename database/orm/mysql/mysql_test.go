@@ -94,7 +94,7 @@ func v2Client() *gorm.DB {
 	})
 
 	// use v2 v1:
-	db := client.DBv2()
+	db := client.DB()
 	db.Debug()
 	return db
 }

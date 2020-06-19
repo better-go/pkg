@@ -67,12 +67,14 @@ func NewMySQLv2(opts *orm.Options) *gormV2.DB {
 	return conn
 }
 
-func (m *Client) DB() *gorm.DB {
-	return m.v1
+// v2
+func (m *Client) DB() *gormV2.DB {
+	return m.v2
 }
 
-func (m *Client) DBv2() *gormV2.DB {
-	return m.v2
+// v1
+func (m *Client) DBClassic() *gorm.DB {
+	return m.v1
 }
 
 func (m *Client) Close() error {
