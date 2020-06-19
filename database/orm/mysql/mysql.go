@@ -25,6 +25,16 @@ func NewClient(opts *orm.Options) *Client {
 	}
 }
 
+// 默认 gorm v2
+func Default(opts *orm.Options) *gormV2.DB {
+	return NewMySQLv2(opts)
+}
+
+// old gorm v1
+func Classic(opts *orm.Options) *gorm.DB {
+	return NewMySQL(opts)
+}
+
 // NewMySQL new v1 and retry connection when has error.
 func NewMySQL(opts *orm.Options) *gorm.DB {
 	opt := orm.NewOptions(
