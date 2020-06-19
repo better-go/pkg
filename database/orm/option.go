@@ -6,6 +6,9 @@ import (
 	"github.com/better-go/pkg/log"
 	timeEx "github.com/better-go/pkg/time"
 	"github.com/jinzhu/gorm"
+	"gorm.io/driver/mysql"
+	gormV2 "gorm.io/gorm"
+	"gorm.io/gorm/schema"
 )
 
 /*
@@ -16,6 +19,8 @@ ref:
 	- gorm 2.0 特性:
 		- https://www.youtube.com/watch?v=NCZHe6zb2Sg
 		- https://github.com/talk-go/night/issues/511
+		- v2 usage:
+			- https://github.com/go-gorm/gorm/blob/v0.2.7/tests/tests_test.go
 */
 
 const (
@@ -181,6 +186,44 @@ func (m *Options) DBConn() *gorm.DB {
 	// auto hook:
 	conn.Callback().Create().Replace("gorm:update_time_stamp", m.autoCreatedFields)
 	conn.Callback().Update().Replace("gorm:update_time_stamp", m.autoUpdatedFields)
+	// hook:
+	// ref: https://gorm.io/zh_CN/docs/write_plugins.html#%E6%B3%A8%E5%86%8Ccallback%E9%A1%BA%E5%BA%8F
+	// github.com/jinzhu/gorm@v1.9.12/callback_query.go:17
+	conn.Callback().Query().Before("gorm:query").Register("gorm:query_fix_deleted", func(scope *gorm.Scope) {
+		// todo: fix deleted field
+	})
+	return conn
+}
+
+func (m *Options) DBConnV2() *gormV2.DB {
+	conn, err := gormV2.Open(
+		mysql.Open(m.DSN),
+		&gormV2.Config{
+			SkipDefaultTransaction: false,
+			NamingStrategy: schema.NamingStrategy{
+				TablePrefix:   "",
+				SingularTable: m.IsSingularTable, // 表单数
+			},
+			Logger:               nil,
+			NowFunc:              nil,
+			DryRun:               false,
+			PrepareStmt:          false,
+			DisableAutomaticPing: false,
+			ClauseBuilders:       nil,
+			ConnPool:             nil,
+			Dialector:            nil,
+		})
+
+	if err != nil {
+		log.Errorf("db dsn(%s) open error: %v", m.DSN, err)
+		panic(err)
+	}
+
+	// debug log:
+	if m.IsDebugMode {
+		conn.Debug()
+	}
+
 	return conn
 }
 
@@ -208,10 +251,10 @@ func (m *Options) autoCreatedFields(scope *gorm.Scope) {
 		}
 
 		// soft delete:
-		if isDeleted, ok := scope.FieldByName(m.IsDeletedName); ok {
-			if isDeleted.IsBlank {
+		if deleted, ok := scope.FieldByName(m.IsDeletedName); ok {
+			if deleted.IsBlank {
 				zeroTs := zeroTime() // default zero time
-				isDeleted.Set(zeroTs)
+				deleted.Set(zeroTs)
 			}
 		}
 	}
@@ -225,13 +268,6 @@ func (m *Options) autoUpdatedFields(scope *gorm.Scope) {
 }
 
 /////////////////////////////////////////////////////////////////////////////////////
-
-// deleted_at = default zeroTime [zero time: 0001-01-01 00:00:00 +0000 UTC]
-func zeroTime() time.Time {
-	// zero time: 0001-01-01 00:00:00 +0000 UTC
-	ts, _ := time.Parse("1/2/2006 15:04:05", "01/01/0001 00:00:00")
-	return ts
-}
 
 //
 // log for orm:

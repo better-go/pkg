@@ -9,7 +9,6 @@ import (
 	//  _ "github.com/jinzhu/gorm/dialects/sqlite"
 	//  _ "github.com/jinzhu/gorm/dialects/mssql"
 	"github.com/jinzhu/gorm"
-	"gorm.io/driver/mysql"
 	gormV2 "gorm.io/gorm"
 )
 
@@ -20,12 +19,9 @@ type Client struct {
 }
 
 func NewClient(opts *orm.Options) *Client {
-	// gorm v2:
-	dbV2, _ := gormV2.Open(mysql.Open(opts.DSN), nil)
-
 	return &Client{
 		v1: NewMySQL(opts),
-		v2: dbV2,
+		v2: NewMySQLv2(opts),
 	}
 }
 
@@ -42,6 +38,22 @@ func NewMySQL(opts *orm.Options) *gorm.DB {
 
 	// conn:
 	conn := opt.DBConn()
+	return conn
+}
+
+// gorm v2
+func NewMySQLv2(opts *orm.Options) *gormV2.DB {
+	opt := orm.NewOptions(
+		orm.Dialect(orm.MySQL),
+		orm.DSN(opts.DSN),
+		orm.ConnParams(opts.ActiveNum, opts.IdleNum, opts.IdleTimeout),
+		orm.TableFields(opts.CreatedTsName, opts.UpdatedTsName, opts.DeletedTsName, opts.IsDeletedName),
+		orm.SingularTable(opts.IsSingularTable), // 单数
+		orm.DebugMode(opts.IsDebugMode),         // debug log
+	)
+
+	// conn:
+	conn := opt.DBConnV2()
 	return conn
 }
 
