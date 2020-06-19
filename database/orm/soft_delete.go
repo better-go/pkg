@@ -30,7 +30,7 @@ func (n DeletedAt) Value() (driver.Value, error) {
 }
 
 //
-// 软删除-查询子句:
+// 软删除-查询子句:(修正 判空条件)
 //    - 自动补全
 //    - where (deleted_at <= "1970-01-02 00:00:00" )
 //
@@ -59,4 +59,8 @@ func zeroTime() time.Time {
 	zero := "01/02/1970 00:00:00"
 	ts, _ := time.Parse("1/2/2006 15:04:05", zero)
 	return ts
+}
+
+func zeroTimeStr() string {
+	return MySqlZeroTimestamp
 }
