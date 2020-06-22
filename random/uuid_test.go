@@ -14,6 +14,10 @@ func TestGenUUID4(t *testing.T) {
 		Gen32BitUUID4(),
 		Gen20BitUUID(),
 		Gen20BitDigit(),
+		GenDigit(4),
+		GenDigit(6),
+		GenDigit(20),
+		GenDigit(21),
 	}
 
 	for i, item := range in {

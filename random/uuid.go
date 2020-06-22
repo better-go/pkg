@@ -57,3 +57,16 @@ func Gen20BitDigit() string {
 	b.WriteString(time.Now().Format("060102150405"))
 	return b.String()
 }
+
+func GenDigit(length int32) string {
+	// invalid:
+	if length > 20 {
+		return ""
+	}
+
+	// max 20 bit:
+	code := Gen20BitDigit()
+
+	// slice:
+	return code[:length]
+}
