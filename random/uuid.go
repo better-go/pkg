@@ -58,6 +58,7 @@ func Gen20BitDigit() string {
 	return b.String()
 }
 
+// for verify code <= 6
 func GenDigit(length int32) string {
 	// invalid:
 	if length > 20 {
