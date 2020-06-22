@@ -53,6 +53,7 @@ func Example() {
 - [x] `text`:
     - [x] xss: 预防 xss 校验
 - [x] `time`: 大量时间方法扩展
+- [x] `crypto`: 密码加密/验证
 - [x] `com`: 第三方企业 API SDK 接入
     - [x] jpush: 极光推送
     - [x] sendcloud: 搜狐短信服务
