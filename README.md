@@ -1,8 +1,12 @@
 # pkg
 golang pkg, common utils
 
+## related:
 
-## Features:
+- https://github.com/better-go/cookiecutter-go
+    - `go 微服务`: 项目创建脚手架.
+
+## features:
 
 - [x] log: 集成 `uber.log`, 开箱即用.
 - [x] sync/async: `go func()` 优雅异步.
@@ -24,6 +28,6 @@ golang pkg, common utils
     - [x] sendcloud: 搜狐短信服务
 
 
-## require:
+## requirements:
 
 - uber.log
