@@ -31,6 +31,11 @@ golang pkg, common utils
     - [x] sendcloud: 搜狐短信服务
 
 
+## wiki:
+
+- https://github.com/better-go/pkg/wiki
+- go 编程规范
+
 ## requirements:
 
 - uber.log
