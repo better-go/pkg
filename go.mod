@@ -4,6 +4,7 @@ go 1.13
 
 require (
 	github.com/Shopify/sarama v1.19.0
+	github.com/beinan/fastid v0.0.0-20190107221622-c03a08f42c37
 	github.com/go-redis/redis/v8 v8.0.0-beta.4
 	github.com/go-sql-driver/mysql v1.5.0
 	github.com/gocarina/gocsv v0.0.0-20200330101823-46266ca37bd3
