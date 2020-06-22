@@ -20,6 +20,7 @@ require (
 	github.com/rs/xid v1.2.1
 	github.com/ylywyn/jpush-api-go-client v0.0.0-20190906031852-8c4466c6e369
 	go.uber.org/zap v1.15.0
+	golang.org/x/crypto v0.0.0-20200510223506-06a226fb4e37
 	golang.org/x/tools v0.0.0-20200501005904-d351ea090f9b // indirect
 	gopkg.in/yaml.v2 v2.2.8 // indirect
 	gorm.io/driver/mysql v0.2.0
