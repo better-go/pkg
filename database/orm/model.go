@@ -4,11 +4,14 @@ import (
 	"time"
 )
 
-// ref: github.com/jinzhu/gorm/model.go:9
-// Model base model definition, including fields `ID`, `CreatedAt`, `UpdatedAt`, `DeletedAt`, which could be embedded in your models
-//    type User struct {
-//      gorm.Model
-//    }
+/*
+ref:
+	mysql 数据类型:
+		- https://www.runoob.com/mysql/mysql-data-types.html
+
+
+*/
+
 type Model struct {
 	ID        uint64    `gorm:"primary_key; type:int(11) unsigned; NOT NULL; AUTO_INCREMENT;                                                        COMMENT:'自增主键' "`
 	CreatedAt time.Time `gorm:"index;       type:timestamp;        NOT NULL;                 DEFAULT:CURRENT_TIMESTAMP;                             COMMENT:'创建时间' "`
@@ -20,7 +23,7 @@ type Model struct {
 // user model:
 type UserModel struct {
 	ID        uint64    `gorm:"primary_key; type:int(11) unsigned; NOT NULL; AUTO_INCREMENT;                                                        COMMENT:'自增主键' "`
-	UserID    uint64    `gorm:"index;       type:int(11) unsigned; NOT NULL;                 DEFAULT:'0';                                           COMMENT:'用户 ID' "` // 用户 ID
+	UserID    uint64    `gorm:"index;       type:BIGINT(20) unsigned; NOT NULL;              DEFAULT:'0';                                           COMMENT:'用户 ID' "` // 用户 ID
 	CreatedAt time.Time `gorm:"index;       type:timestamp;        NOT NULL;                 DEFAULT:CURRENT_TIMESTAMP;                             COMMENT:'创建时间' "`
 	UpdatedAt time.Time `gorm:"index;       type:timestamp;        NOT NULL;                 DEFAULT:CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP; COMMENT:'更新时间' "`
 	DeletedAt DeletedAt `gorm:"index;       type:timestamp;        NOT NULL;                 DEFAULT:'1970-01-01 00:00:01';                         COMMENT:'删除时间' "`
@@ -29,7 +32,7 @@ type UserModel struct {
 // 唯一索引:
 type UserUniqueModel struct {
 	ID        uint64    `gorm:"primary_key; type:int(11) unsigned; NOT NULL; AUTO_INCREMENT;                                                        COMMENT:'自增主键' "`
-	UserID    uint64    `gorm:"UNIQUE;      type:int(11) unsigned; NOT NULL;                 DEFAULT:'0';                                           COMMENT:'用户 ID' "` // 用户 ID
+	UserID    uint64    `gorm:"UNIQUE;      type:BIGINT(20) unsigned; NOT NULL;              DEFAULT:'0';                                           COMMENT:'用户 ID' "` // 用户 ID
 	CreatedAt time.Time `gorm:"index;       type:timestamp;        NOT NULL;                 DEFAULT:CURRENT_TIMESTAMP;                             COMMENT:'创建时间' "`
 	UpdatedAt time.Time `gorm:"index;       type:timestamp;        NOT NULL;                 DEFAULT:CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP; COMMENT:'更新时间' "`
 	DeletedAt DeletedAt `gorm:"index;       type:timestamp;        NOT NULL;                 DEFAULT:'1970-01-01 00:00:01';                         COMMENT:'删除时间' "`
