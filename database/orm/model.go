@@ -26,6 +26,16 @@ type UserModel struct {
 	DeletedAt DeletedAt `gorm:"index;       type:timestamp;        NOT NULL;                 DEFAULT:'1970-01-01 00:00:01';                         COMMENT:'删除时间' "`
 }
 
+// has status:
+type StatusModel struct {
+	ID        uint64    `gorm:"primary_key; type:int(11) unsigned; NOT NULL; AUTO_INCREMENT;                                                        COMMENT:'自增主键' "`
+	Status    int64     `gorm:"index;       type:int(11);          NOT NULL;                 DEFAULT:'-1';                                          COMMENT:'状态: (-1:无效, 1:正常, >1: 正常中间状态, <-1: 异常中间状态)'; "`
+	CreatedAt time.Time `gorm:"index;       type:timestamp;        NOT NULL;                 DEFAULT:CURRENT_TIMESTAMP;                             COMMENT:'创建时间' "`
+	UpdatedAt time.Time `gorm:"index;       type:timestamp;        NOT NULL;                 DEFAULT:CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP; COMMENT:'更新时间' "`
+	DeletedAt DeletedAt `gorm:"index;       type:timestamp;        NOT NULL;                 DEFAULT:'1970-01-01 00:00:01';                         COMMENT:'删除时间' "` // 删除默认时间戳
+
+}
+
 // db 事务: 乐观锁
 type TxModel struct {
 	ID        uint64    `gorm:"primary_key; type:int(11) unsigned; NOT NULL; AUTO_INCREMENT;                                                        COMMENT:'自增主键' "`
