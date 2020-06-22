@@ -6,6 +6,33 @@ golang pkg, common utils
 - https://github.com/better-go/cookiecutter-go
     - `go 微服务`: 项目创建脚手架.
 
+## quickstart:
+
+- install:
+
+```bash 
+
+go get -u -v github.com/better-go/pkg
+
+```
+
+- usage:
+
+```golang 
+
+import (
+	"github.com/better-go/pkg/random"
+)
+
+func Example() {
+	// snowflake id:
+	userID := random.SnowFlakeID()
+	fmt.Printf("userID:%v\n", userID)
+}
+
+```
+
+
 ## features:
 
 - [x] `log`: 集成 `uber.log`, 开箱即用.
