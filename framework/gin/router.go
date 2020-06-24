@@ -59,7 +59,7 @@ func ApiHandlerWrap(ctx *gin.Context, req interface{}, handlerFn apiHandlerFunc)
 	// do api handler
 	//
 	resp, err := handlerFn(ctx, req)
-	log.Debugf("http api request done: resp=%+v, err=%v", resp, err)
+	log.Debugf("http api request done: resp=%+v, req=%+v, err=%v", resp, req, err)
 
 	//////////////////////////////////////////////////////////////////////////
 
