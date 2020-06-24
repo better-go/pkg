@@ -3,6 +3,7 @@ package gin
 import (
 	"net/http"
 
+	"github.com/better-go/pkg/errors"
 	"github.com/better-go/pkg/log"
 	"github.com/gin-gonic/gin"
 )
@@ -52,24 +53,45 @@ func ApiHandlerWrap(ctx *gin.Context, req interface{}, handlerFn apiHandlerFunc)
 	//value = reflect.ValueOf(req)
 	//log.Debugf("req type after bind: %+v, type:%v", req, value.Type())
 
+	//////////////////////////////////////////////////////////////////////////
+
 	//
 	// do api handler
 	//
 	resp, err := handlerFn(ctx, req)
 	log.Debugf("http api request done: resp=%+v, err=%v", resp, err)
 
-	// resp:
+	//////////////////////////////////////////////////////////////////////////
+
+	// err resp:
 	if err != nil {
-		log.Error("user register: Register error")
-		ctx.JSON(http.StatusInternalServerError, gin.H{
-			"error": err.Error(),
+		// type err:
+		if e, ok := err.(*errors.HttpError); ok {
+			ctx.JSON(int(e.GetCode()), ResponseData{
+				Code:    int64(e.GetCode()),
+				Message: e.GetDetail(),
+				Data:    nil,
+			})
+			return
+		}
+
+		//biz err: 500
+		ctx.JSON(http.StatusInternalServerError, ResponseData{
+			Code:    http.StatusInternalServerError,
+			Message: http.StatusText(http.StatusInternalServerError),
+			Data:    nil,
 		})
 		return
+
 	}
 
+	//////////////////////////////////////////////////////////////////////////
+
+	// ok resp:
 	ctx.JSON(http.StatusOK, ResponseData{
-		Code:    200,
-		Message: "ok",
+		Code:    http.StatusOK,
+		Message: http.StatusText(http.StatusOK),
 		Data:    resp,
 	})
+	return
 }
