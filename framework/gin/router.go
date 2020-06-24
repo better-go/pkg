@@ -6,6 +6,7 @@ import (
 	"github.com/better-go/pkg/errors"
 	"github.com/better-go/pkg/log"
 	"github.com/gin-gonic/gin"
+	microErr "github.com/micro/go-micro/v2/errors"
 )
 
 /*
@@ -67,6 +68,16 @@ func ApiHandlerWrap(ctx *gin.Context, req interface{}, handlerFn apiHandlerFunc)
 	if err != nil {
 		// type err:
 		if e, ok := err.(*errors.HttpError); ok {
+			ctx.JSON(int(e.GetCode()), ResponseData{
+				Code:    int64(e.GetCode()),
+				Message: e.GetDetail(),
+				Data:    nil,
+			})
+			return
+		}
+
+		// type err:
+		if e, ok := err.(*microErr.Error); ok {
 			ctx.JSON(int(e.GetCode()), ResponseData{
 				Code:    int64(e.GetCode()),
 				Message: e.GetDetail(),
