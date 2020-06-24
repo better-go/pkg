@@ -9,6 +9,16 @@ import (
 // 类型扩展方法:
 type HttpError errors.Error
 
+// New generates a custom error.
+func NewHttpError(id, detail string, code int32) error {
+	return &HttpError{
+		Id:     id,
+		Code:   code,
+		Detail: detail,
+		Status: http.StatusText(int(code)),
+	}
+}
+
 func (m *HttpError) Error() string {
 	// 强制类型转换 + 调用
 	return (*errors.Error)(m).Error()
@@ -25,16 +35,6 @@ func (m *HttpError) GetDetail() string {
 
 func (m *HttpError) GetId() string {
 	return (*errors.Error)(m).GetId()
-}
-
-// New generates a custom error.
-func New(id, detail string, code int32) error {
-	return &errors.Error{
-		Id:     id,
-		Code:   code,
-		Detail: detail,
-		Status: http.StatusText(int(code)),
-	}
 }
 
 // BadRequest generates a 400 error.
