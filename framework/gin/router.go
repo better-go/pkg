@@ -31,11 +31,11 @@ usage:
 
 */
 
-// ApiHandlerFunc api logic func
-type ApiHandlerFunc func(ctx *gin.Context, in interface{}) (out interface{}, err error)
+// apiHandlerFunc api logic func
+type apiHandlerFunc func(ctx *gin.Context, in interface{}) (out interface{}, err error)
 
 // ApiHandlerWrap 路由自动校验入参 + 格式化返回值
-func ApiHandlerWrap(ctx *gin.Context, req interface{}, handlerFn ApiHandlerFunc) {
+func ApiHandlerWrap(ctx *gin.Context, req interface{}, handlerFn apiHandlerFunc) {
 	log.Debugf("http api request entry: req=%+v", req)
 	//value := reflect.ValueOf(req)
 	//log.Debugf("req type before bind: %+v, type:%v", req, value.Type())
