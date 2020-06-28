@@ -19,6 +19,10 @@ const (
 	urlMailTemplate = "http://api.sendcloud.net/apiv2/mail/sendtemplate" // 邮件模板发送
 	urlSms          = "http://www.sendcloud.net/smsapi/send"             // 短信普通发送
 	urlSmsVoice     = "http://www.sendcloud.net/smsapi/sendVoice"        // 短信语音发送
+
+	// message type: 0表示短信, 1表示彩信,2表示国际短信,3表示国内语音,5表示影音 默认值为0
+	MessageTypeCN      = 0 //  短信, 默认值为0
+	MessageTypeOversea = 2 // 国际短信
 )
 
 //
@@ -109,6 +113,56 @@ func (m *MailTemplate) ToSend() url.Values {
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
-// Message sms message
+// Message sms message: https://www.sendcloud.net/doc/sms/api/#send
 type Message struct {
+	SmsUser string `json:"smsUser"` //
+
+	//
+	TemplateID int64    `json:"templateId"` // 短信模板ID
+	LabelID    int64    `json:"labelId"`    // 短信标签ID
+	MsgType    int64    `json:"msgType"`    // 0表示短信, 1表示彩信,2表示国际短信,3表示国内语音,5表示影音 默认值为0
+	Phone      []string `json:"phone"`      // 收信人手机号,多个手机号用逗号,分隔，每次调用最大支持2000，更多地址建议使用联系人列表功能
+	Vars       string   `json:"vars"`       // 替换变量的json串
+	Signature  string   `json:"signature"`  // 数字签名, 合法性验证，详情见API 验证机制
+	Timestamp  string   `json:"timestamp"`  // UNIX时间戳
+	Tag        string   `json:"tag"`        // 值为json 格式字符串,最大字符长度为128,比如:{"key1": "value1", "key2": "value2"}
+}
+
+func (m *Message) Default(apiUser string) {
+	m.SmsUser = apiUser
+}
+
+func (m *Message) ToSend() url.Values {
+	v := url.Values{}
+
+	v.Add("smsUser", m.SmsUser)
+
+	return v
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
+// http://www.sendcloud.net/smsapi/sendVoice
+type MessageVoice struct {
+	SmsUser string `json:"smsUser"` //
+
+	//
+	LabelID   int64  `json:"labelId"`   // 短信标签ID
+	Phone     string `json:"phone"`     // 收信人手机号
+	Code      string `json:"code"`      // 验证码
+	Signature string `json:"signature"` // 数字签名, 合法性验证，详情见API 验证机制
+	Timestamp string `json:"timestamp"` // UNIX时间戳
+	Tag       string `json:"tag"`       // 值为json 格式字符串,最大字符长度为128,比如:{"key1": "value1", "key2": "value2"}
+}
+
+func (m *MessageVoice) Default(apiUser string) {
+	m.SmsUser = apiUser
+}
+
+func (m *MessageVoice) ToSend() url.Values {
+	v := url.Values{}
+
+	v.Add("smsUser", m.SmsUser)
+
+	return v
 }
