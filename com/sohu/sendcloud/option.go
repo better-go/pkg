@@ -29,6 +29,8 @@ type Option struct {
 	SmsApiKey    string // sms: key
 }
 
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
 // Mail email content: https://www.sendcloud.net/doc/email_v2/send_email/
 type Mail struct {
 	// key:
@@ -80,9 +82,32 @@ func (m *Mail) ToSend() url.Values {
 	return v
 }
 
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
 // 模板邮件
 type MailTemplate struct {
+	// key:
+	ApiUser string `json:"apiUser"` // API_USER
+	ApiKey  string `json:"apiKey"`  // API_KEY
+
+	//
 }
+
+func (m *MailTemplate) Default(apiUser string, apiKey string) {
+	m.ApiUser = apiUser
+	m.ApiKey = apiKey
+}
+
+func (m *MailTemplate) ToSend() url.Values {
+	v := url.Values{}
+
+	v.Add("apiUser", m.ApiUser)
+	v.Add("apiKey", m.ApiKey)
+
+	return v
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
 
 // Message sms message
 type Message struct {
