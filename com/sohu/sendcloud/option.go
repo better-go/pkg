@@ -3,6 +3,9 @@ package sendcloud
 import (
 	"net/url"
 	"strings"
+
+	"github.com/better-go/pkg/convert"
+	"github.com/better-go/pkg/time"
 )
 
 /*
@@ -21,7 +24,7 @@ const (
 	urlSmsVoice     = "http://www.sendcloud.net/smsapi/sendVoice"        // 短信语音发送
 
 	// message type: 0表示短信, 1表示彩信,2表示国际短信,3表示国内语音,5表示影音 默认值为0
-	MessageTypeCN      = 0 //  短信, 默认值为0
+	MessageTypeCN      = 0 // 短信, 默认值为0
 	MessageTypeOversea = 2 // 国际短信
 )
 
@@ -136,8 +139,18 @@ func (m *Message) ToSend() url.Values {
 	v := url.Values{}
 
 	v.Add("smsUser", m.SmsUser)
-
+	v.Add("templateId", convert.Int64ToString(m.TemplateID))
+	v.Add("msgType", convert.Int64ToString(m.MsgType))
+	v.Add("phone", strings.Join(m.Phone, ","))
+	v.Add("vars", m.Vars)
+	v.Add("timestamp", time.Gen13BitTimestamp()) //  fmt.Sprintf("%d", time.Now().Unix()*1000),
+	v.Add("signature", m.Signature)
 	return v
+}
+
+// 生成签名:
+func (m *Message) Sign() {
+	m.Signature = "" // TODO: https://www.sendcloud.net/doc/sms/#_7
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////

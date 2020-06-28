@@ -3,6 +3,7 @@ package time
 import (
 	"fmt"
 	"testing"
+	"time"
 )
 
 func TestGenTimestamp10bit(t *testing.T) {
@@ -27,6 +28,10 @@ func TestGenTs10bit(t *testing.T) {
 	for i, item := range in {
 		t.Log(i, "ts:", item)
 	}
+
+	ts := fmt.Sprintf("%d", time.Now().Unix()*1000)
+	t.Log("ts=", ts)
+
 }
 
 func TestDuration13Bit(t *testing.T) {

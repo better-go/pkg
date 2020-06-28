@@ -3,11 +3,11 @@ package sendcloud
 import "testing"
 
 func TestSendCloud_SendEmail(t *testing.T) {
-	apiUser := "test user"
-	apiKey := "test key"
+	apiUser := "test_user" // test_user
+	apiKey := "test_key"   // test_key
 	//
-	from := "from@gmail.com"
-	to := "to@gmail.com"
+	from := "from@gmail.com" // from
+	to := "to@gmail.com"     // to
 
 	// new:
 	mailer := NewEmail(apiUser, apiKey)
@@ -45,10 +45,31 @@ func TestSendCloud_SendEmail(t *testing.T) {
 			err: <nil>
 		--- PASS: TestSendCloud_SendEmail (0.19s)
 	*/
-	t.Log("resp:", err)
+	t.Log("send email resp:", err)
 
 }
 
 func TestSendCloud_SendSms(t *testing.T) {
+	smsUser := "test_user" // test_user
+	//
+	phone := "test_phone_no" // phone_no
+	vars := ""
 
+	// new:
+	smsSender := NewSms(smsUser, "")
+
+	// send:
+	err := smsSender.Send(&Message{
+		SmsUser:    smsUser,
+		TemplateID: 0,
+		LabelID:    0,
+		MsgType:    0,
+		Phone:      []string{phone},
+		Vars:       vars,
+		Signature:  "",
+		Timestamp:  "",
+		Tag:        "",
+	})
+
+	t.Log("send sms resp:", err)
 }
