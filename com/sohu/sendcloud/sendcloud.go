@@ -18,8 +18,8 @@ type SendCloud struct {
 
 func NewSendCloud(opt *Option) *SendCloud {
 	return &SendCloud{
-		mail: NewEmail(opt.ApiUser, opt.ApiKey),
-		sms:  NewSms(opt.SmsUser, opt.SmsKey),
+		mail: NewEmail(opt.EmailApiUser, opt.EmailApiKey),
+		sms:  NewSms(opt.SmsApiUser, opt.SmsApiKey),
 	}
 }
 

@@ -1,14 +1,14 @@
 package sendcloud
 
 type Sms struct {
-	smsUser string
-	smsKey  string
+	apiUser string
+	apiKey  string
 }
 
-func NewSms(smsUser string, smsKey string) *Sms {
+func NewSms(apiUser string, apiKey string) *Sms {
 	return &Sms{
-		smsUser: smsUser,
-		smsKey:  smsKey,
+		apiUser: apiUser,
+		apiKey:  apiKey,
 	}
 }
 
