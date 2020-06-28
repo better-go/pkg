@@ -51,12 +51,13 @@ func TestSendCloud_SendEmail(t *testing.T) {
 
 func TestSendCloud_SendSms(t *testing.T) {
 	smsUser := "test_user" // test_user
+	smsKey := ""           // for gen Signature
 	//
 	phone := "test_phone_no" // phone_no
 	vars := ""
 
 	// new:
-	smsSender := NewSms(smsUser, "")
+	smsSender := NewSms(smsUser, smsKey)
 
 	// send:
 	err := smsSender.Send(&Message{

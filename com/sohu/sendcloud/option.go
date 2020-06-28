@@ -149,7 +149,7 @@ func (m *Message) ToSend() url.Values {
 }
 
 // 生成签名:
-func (m *Message) Sign() {
+func (m *Message) Sign(smsKey string) {
 	m.Signature = "" // TODO: https://www.sendcloud.net/doc/sms/#_7
 }
 
