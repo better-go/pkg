@@ -36,5 +36,5 @@ func (m *Email) SendTemplate(mail *MailTemplate) error {
 	mail.Default(m.apiUser, m.apiKey)
 
 	// post:
-	return QuickPost(m.cli, urlMail, mail.ToSend())
+	return QuickPost(m.cli, urlMailTemplate, mail.ToSend())
 }
