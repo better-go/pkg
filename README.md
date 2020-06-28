@@ -67,3 +67,5 @@ func Example() {
 ## requirements:
 
 - uber.log
+- 目录结构参考: https://github.com/micro/go-plugins
+
