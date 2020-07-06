@@ -32,3 +32,8 @@ require (
 	gorm.io/driver/mysql v0.2.0
 	gorm.io/gorm v0.2.7
 )
+
+replace (
+	github.com/coreos/go-systemd => github.com/coreos/go-systemd/v22 v22.0.0
+	google.golang.org/grpc => google.golang.org/grpc v1.26.0
+)
