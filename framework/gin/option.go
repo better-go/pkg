@@ -2,15 +2,16 @@ package gin
 
 import (
 	"context"
-	"sync"
+	"github.com/better-go/pkg/framework/gin/client"
+	"github.com/better-go/pkg/framework/gin/server"
 )
 
 type Option func(*Options)
 
 // Options for micro service
 type Options struct {
-	Http     ServerUnit // http server
-	HttpPref ServerUnit // go pref
+	Server server.Server
+	Client client.Client
 
 	// Before and After funcs
 	BeforeStart []func() error
@@ -25,38 +26,12 @@ type Options struct {
 	Signal bool
 }
 
-type ServerUnit struct {
-	Network      string
-	Addr         string
-	Timeout      string
-	ReadTimeout  string
-	WriteTimeout string
-
-	On   bool      // pref switch
-	Once sync.Once // do once
-}
-
 func newOptions(opts ...Option) Options {
 	opt := Options{
 		Context: context.Background(),
-		Http: ServerUnit{
-			Addr:         "",
-			Timeout:      "",
-			ReadTimeout:  "",
-			WriteTimeout: "",
-			On:           false,
-			Once:         sync.Once{},
-		},
-		HttpPref: ServerUnit{
-			Addr:         "",
-			Timeout:      "",
-			ReadTimeout:  "",
-			WriteTimeout: "",
-			On:           true,
-			Once:         sync.Once{},
-		},
 
-		Signal: true,
+		Server: server.DefaultServer,
+		Client: client.DefaultClient,
 	}
 
 	for _, o := range opts {
@@ -64,4 +39,18 @@ func newOptions(opts ...Option) Options {
 	}
 
 	return opt
+}
+
+// Server to be used for service
+func Server(s server.Server) Option {
+	return func(o *Options) {
+		o.Server = s
+	}
+}
+
+// Client to be used for service
+func Client(c client.Client) Option {
+	return func(o *Options) {
+		o.Client = c
+	}
 }

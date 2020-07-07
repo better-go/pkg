@@ -1,88 +1,80 @@
-package gin
+package server
 
 import (
 	"context"
 	"net"
 	"net/http"
 	"net/http/pprof"
+	"sync"
 	"sync/atomic"
-	"time"
 
 	"github.com/better-go/pkg/log"
-	"github.com/better-go/pkg/os/signal"
 	"github.com/gin-gonic/gin"
 	"github.com/pkg/errors"
 )
 
-type Server struct {
-	opts   Options      // server option
-	server atomic.Value // store *http.Server
+var (
+	DefaultServer Server = newGinServer()
+	// NewServer creates a new server
+	NewServer func(...Option) Server = newGinServer
+)
 
-	r *gin.Engine // gin router
+type ginServer struct {
+	opts Options
+
+	once   sync.Once
+	server atomic.Value // store *http.Service
+	r      *gin.Engine  // gin router
+
+	exit chan chan error
+	sync.RWMutex
+
+	// graceful exit
+	wg *sync.WaitGroup
 }
 
-func NewServer(opts ...Option) *Server {
-	s := new(Server)
-
-	// opt:
+func newGinServer(opts ...Option) Server {
 	o := newOptions(opts...)
 
-	// gin:
-	r := gin.Default()
-
-	// set:
-	s.opts = o
-	s.r = r
-
-	return s
+	return &ginServer{
+		opts:    o,
+		once:    sync.Once{},
+		server:  atomic.Value{},
+		r:       nil,
+		exit:    nil,
+		RWMutex: sync.RWMutex{},
+		wg:      nil,
+	}
 }
 
-// support graceful shutdown
-func (m *Server) Run() error {
-	return signal.GracefulShutdown(
-		m.opts.Context,
-		func() error {
-			//
-			// do start:
-			//
-			return m.Start()
-		},
-
-		func() error {
-			ctx, cancel := context.WithTimeout(context.Background(), 35*time.Second)
-
-			//
-			// do stop:
-			//
-			err := m.Stop(ctx)
-			if err != nil {
-				log.Errorf("http stop error: %v", err)
-			}
-
-			cancel()
-			time.Sleep(time.Second)
-			return err
-		},
-	)
+func (m *ginServer) Options() Options {
+	m.RLock()
+	opts := m.opts
+	m.RUnlock()
+	return opts
 }
 
-func (m *Server) RunTLS() error {
-	// TODO: need fix
-	return m.Run()
+func (m *ginServer) Init(opts ...Option) error {
+	m.Lock()
+	defer m.Unlock()
+
+	for _, opt := range opts {
+		opt(&m.opts)
+	}
+
+	return nil
+}
+
+func (m *ginServer) String() string {
+	return "gin server"
 }
 
 // start:
-func (m *Server) Start() error {
-	// before:
-	for _, fn := range m.opts.BeforeStart {
-		if err := fn(); err != nil {
-			return err
-		}
-	}
+func (m *ginServer) Start() error {
 
 	////////////////////////////////////////////////////////////////////
 
-	cfg := m.opts.Http
+	cfg := m.opts
 	l, err := net.Listen(cfg.Network, cfg.Addr)
 	if err != nil {
 		return errors.Wrapf(err, "listen tcp: %s", cfg.Addr)
@@ -90,8 +82,8 @@ func (m *Server) Start() error {
 	log.Infof("http listen addr: %v", cfg)
 
 	h := &http.Server{
-		Addr:    m.opts.Http.Addr, // host
-		Handler: m.r,              // register gin router
+		Addr:    m.opts.Addr, // host
+		Handler: m.r,         // register gin router
 
 		TLSConfig:         nil,
 		ReadTimeout:       0,
@@ -119,46 +111,19 @@ func (m *Server) Start() error {
 
 	}()
 
-	////////////////////////////////////////////////////////////////////
-
-	// after:
-	for _, fn := range m.opts.AfterStart {
-		if err := fn(); err != nil {
-			return err
-		}
-	}
-
 	return nil
 }
 
-func (m *Server) Stop(ctx context.Context) error {
-	var gerr error
-
-	for _, fn := range m.opts.BeforeStop {
-		if err := fn(); err != nil {
-			gerr = err
-		}
-	}
-
-	////////////////////////////////////////////////////////////////////
-
+func (m *ginServer) Stop(ctx context.Context) error {
 	// stop:
-	if err := m.shutdown(ctx); err != nil {
+	err := m.shutdown(ctx)
+	if err != nil {
 		log.Error("http shutdown error(%v)", err)
 	}
-
-	////////////////////////////////////////////////////////////////////
-
-	for _, fn := range m.opts.AfterStop {
-		if err := fn(); err != nil {
-			gerr = err
-		}
-	}
-
-	return gerr
+	return err
 }
 
-func (m *Server) serve(s *http.Server, l net.Listener) error {
+func (m *ginServer) serve(s *http.Server, l net.Listener) error {
 	s.Handler = m.r
 	m.server.Store(s) // global cache
 
@@ -170,16 +135,16 @@ func (m *Server) serve(s *http.Server, l net.Listener) error {
 	return nil
 }
 
-func (m *Server) shutdown(ctx context.Context) error {
-	s := m.Server()
+func (m *ginServer) shutdown(ctx context.Context) error {
+	s := m.HttpServer()
 	if s == nil {
 		return errors.New("no server")
 	}
 	return errors.WithStack(s.Shutdown(ctx))
 }
 
-// Server is used to load stored http server.
-func (m *Server) Server() *http.Server {
+// Service is used to load stored http server.
+func (m *ginServer) HttpServer() *http.Server {
 	s, ok := m.server.Load().(*http.Server)
 	if !ok {
 		return nil
@@ -188,13 +153,13 @@ func (m *Server) Server() *http.Server {
 }
 
 // go pref
-func (m *Server) pref() {
-	cfg := m.opts.HttpPref
+func (m *ginServer) pref() {
+	cfg := m.opts
 
 	// do once:
 	cfg.Once.Do(func() {
 		// switch:
-		if m.opts.HttpPref.On {
+		if m.opts.On {
 			// register router:
 			debug := m.r.Group("/debug/pprof")
 			{
@@ -214,7 +179,7 @@ func (m *Server) pref() {
 
 			// serve http:
 			go func() {
-				if err := http.ListenAndServe(m.opts.HttpPref.Addr, nil); err != nil {
+				if err := http.ListenAndServe(m.opts.Addr, nil); err != nil {
 					panic(errors.Errorf("http pref listen %s: error(%v)", cfg.Addr, err))
 				}
 			}()
