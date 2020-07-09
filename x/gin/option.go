@@ -2,8 +2,8 @@ package gin
 
 import (
 	"context"
-	"github.com/better-go/pkg/framework/gin/client"
-	"github.com/better-go/pkg/framework/gin/server"
+	"github.com/better-go/pkg/x/gin/client"
+	"github.com/better-go/pkg/x/gin/server"
 )
 
 type Option func(*Options)

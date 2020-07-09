@@ -5,10 +5,10 @@ import (
 	"sync"
 	"time"
 
-	"github.com/better-go/pkg/framework/gin/client"
-	"github.com/better-go/pkg/framework/gin/server"
 	"github.com/better-go/pkg/log"
 	"github.com/better-go/pkg/os/signal"
+	"github.com/better-go/pkg/x/gin/client"
+	"github.com/better-go/pkg/x/gin/server"
 )
 
 // Service is an interface that wraps the lower level libraries
