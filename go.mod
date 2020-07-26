@@ -22,6 +22,8 @@ require (
 	github.com/micro/go-micro/v2 v2.8.0
 	github.com/microcosm-cc/bluemonday v1.0.2
 	github.com/opentracing/opentracing-go v1.1.1-0.20190913142402-a7454ce5950e
+	github.com/openzipkin-contrib/zipkin-go-opentracing v0.4.5
+	github.com/openzipkin/zipkin-go v0.2.1
 	github.com/pkg/errors v0.9.1
 	github.com/rs/xid v1.2.1
 	github.com/uber/jaeger-client-go v2.25.0+incompatible
