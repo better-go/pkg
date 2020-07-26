@@ -11,6 +11,7 @@ import (
 	"io"
 	"time"
 
+	"github.com/better-go/pkg/log"
 	"github.com/opentracing/opentracing-go"
 	"github.com/uber/jaeger-client-go"
 	"github.com/uber/jaeger-client-go/config"
@@ -33,6 +34,7 @@ func New(serviceName string, addr string) (opentracing.Tracer, io.Closer, error)
 	// conn Jaeger Server:
 	sender, err := jaeger.NewUDPTransport(addr, 0)
 	if err != nil {
+		log.Errorf("new jaeger sender error, err=%v", err)
 		return nil, nil, err
 	}
 
