@@ -5,6 +5,7 @@ go 1.13
 require (
 	github.com/Shopify/sarama v1.19.0
 	github.com/beinan/fastid v0.0.0-20190107221622-c03a08f42c37
+	github.com/codahale/hdrhistogram v0.0.0-20161010025455-3a0bb77429bd // indirect
 	github.com/gin-gonic/gin v1.6.3
 	github.com/go-playground/validator/v10 v10.3.0 // indirect
 	github.com/go-redis/redis/v8 v8.0.0-beta.4
@@ -20,8 +21,11 @@ require (
 	github.com/kr/pretty v0.2.0 // indirect
 	github.com/micro/go-micro/v2 v2.8.0
 	github.com/microcosm-cc/bluemonday v1.0.2
+	github.com/opentracing/opentracing-go v1.1.1-0.20190913142402-a7454ce5950e
 	github.com/pkg/errors v0.9.1
 	github.com/rs/xid v1.2.1
+	github.com/uber/jaeger-client-go v2.25.0+incompatible
+	github.com/uber/jaeger-lib v2.2.0+incompatible // indirect
 	github.com/ylywyn/jpush-api-go-client v0.0.0-20190906031852-8c4466c6e369
 	go.uber.org/zap v1.15.0
 	golang.org/x/crypto v0.0.0-20200510223506-06a226fb4e37
