@@ -2,6 +2,7 @@ package rabbitmq
 
 import (
 	"fmt"
+
 	"github.com/better-go/pkg/log"
 	"github.com/streadway/amqp"
 )
@@ -36,7 +37,7 @@ func NewConsumer(opt *ConnOption) (*Consumer, error) {
 
 }
 
-//
+// 批量处理:
 func (m *Consumer) Consume(exchange *Exchange, queue *Queue, routingKey string, consumerTag string, taskFn TaskFunc) error {
 	channel, err := m.conn.Channel()
 	if err != nil {
@@ -89,18 +90,73 @@ func (m *Consumer) Consume(exchange *Exchange, queue *Queue, routingKey string, 
 	}
 
 	// 5. do handle task:
-	go m.handleTask(deliveries, m.done, taskFn)
+	go m.handleTasks(deliveries, m.done, taskFn)
+	return nil
+}
+
+// 单条消息处理:
+func (m *Consumer) Get(exchange *Exchange, queue *Queue, routingKey string, consumerTag string, taskFn TaskFunc) error {
+	channel, err := m.conn.Channel()
+	if err != nil {
+		return fmt.Errorf("rabbitmq get channel error: %v'", err)
+	}
+	defer channel.Close()
+
+	// 1. declare exchange:
+	if err := channel.ExchangeDeclare(
+		exchange.Name,
+		exchange.Type,
+		true,
+		false,
+		false,
+		false,
+		nil,
+	); err != nil {
+		return fmt.Errorf("rabbitmq exchange declare error: %v", err)
+	}
+
+	// 2. declare queue:
+	if _, err := channel.QueueDeclare(
+		queue.Name,
+		queue.Durable,
+		queue.AutoDelete,
+		queue.Exclusive,
+		queue.NoWait,
+		queue.Args,
+	); err != nil {
+		return fmt.Errorf("rabbitmq queue declare error: %v", err)
+	}
+
+	// 3. binding queue to exchange:
+	if err := channel.QueueBind(queue.Name, routingKey, exchange.Name, false, nil, ); err != nil {
+		return fmt.Errorf("rabbitmq queue binding exchange error: %v", err)
+	}
+
+	// 4. Get one task:
+	message, ok, err := channel.Get(queue.Name, true)
+	if err != nil {
+		return err
+	}
+	if !ok {
+		return nil
+	}
+
+	// handle task:
+	if err := taskFn(string(message.Body)); err != nil {
+		log.Errorf("rabbitmq consumer.Get: taskFunc error: %v, message: %v", err, string(message.Body))
+		return err
+	}
 	return nil
 }
 
 // handle one task:
-func (m *Consumer) handleTask(deliveries <-chan amqp.Delivery, done chan error, taskFn TaskFunc) {
+func (m *Consumer) handleTasks(deliveries <-chan amqp.Delivery, done chan error, taskFn TaskFunc) {
 	for d := range deliveries {
 		log.Infof("rabbitmq consumer: handle task - size=%d B delivery=[%v] msg=%q", len(d.Body), d.DeliveryTag, d.Body)
 
 		// handle one message:
 		if err := taskFn(string(d.Body)); err != nil {
-			log.Errorf("rabbitmq consumer: taskFunc error: %v, message: %v", err, string(d.Body))
+			log.Errorf("rabbitmq consumer.Consume: taskFunc error: %v, message: %v", err, string(d.Body))
 		}
 
 		// ack one:
