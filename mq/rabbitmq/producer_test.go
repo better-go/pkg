@@ -10,34 +10,16 @@ web ui: http://localhost:15672/#/queues/exchange_server/test-queue
 	- check web ui queue result
 
 */
-func TestProducer(t *testing.T) {
+func TestProducer_Publish(t *testing.T) {
 
-	p, err := NewProducer(&ProducerOption{
-		Meta: &ConnOption{
-			Uri:      "amqp://rabbit:rabbit@localhost:5672/exchange_server",
-			Host:     "",
-			Port:     0,
-			Username: "",
-			Password: "",
-			Vhost:    "",
-		},
-		Exchange: &Exchange{
-			Name:       "",
-			Type:       "",
-			Durable:    false,
-			AutoDelete: false,
-			Internal:   false,
-			NoWait:     false,
-			Args:       nil,
-		},
-		Queue:      nil,
-		RoutingKey: "",
-		Tag:        "",
-		Mandatory:  false,
-		Immediate:  false,
-		NoWait:     false,
-		Args:       nil,
-	})
+	p, err := NewProducer(&ConnOption{
+		Uri:      "amqp://rabbit:rabbit@localhost:5672/exchange_server",
+		Host:     "",
+		Port:     0,
+		Username: "",
+		Password: "",
+		Vhost:    "",
+	}, )
 
 	t.Logf("producer create: %v", err)
 
@@ -59,7 +41,6 @@ func TestProducer(t *testing.T) {
 			NoWait:     false, // 是否阻塞
 			Args:       nil,   // 额外属性
 		},
-		"",
 		"test-routing-key",
 		"hello world, from producer publish",
 		true,

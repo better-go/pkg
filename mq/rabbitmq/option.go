@@ -16,7 +16,7 @@ ref:
 // producer:
 type ProducerOption struct {
 	// meta
-	Meta *ConnOption
+	Conn *ConnOption
 
 	//
 	Exchange *Exchange
@@ -42,20 +42,6 @@ type ProducerOption struct {
 	Args amqp.Table
 }
 
-
-// mq uri:
-func (m *ProducerOption) MQUri() string {
-	if m.Meta.Uri != "" {
-		return m.Meta.Uri
-	}
-
-	uri := fmt.Sprintf("amqp://%s:%s@%s:%d/", m.Meta.Username, m.Meta.Password, m.Meta.Host, m.Meta.Port)
-	if m.Meta.Vhost != "" {
-		uri += m.Meta.Vhost
-	}
-	return uri
-}
-
 // consumer:
 type ConsumerOption struct {
 	// meta
@@ -70,6 +56,19 @@ type ConnOption struct {
 	Username string
 	Password string
 	Vhost    string
+}
+
+// mq uri:
+func (m *ConnOption) ConnUri() string {
+	if m.Uri != "" {
+		return m.Uri
+	}
+
+	uri := fmt.Sprintf("amqp://%s:%s@%s:%d/", m.Username, m.Password, m.Host, m.Port)
+	if m.Vhost != "" {
+		uri += m.Vhost
+	}
+	return uri
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////

@@ -17,21 +17,20 @@ type Producer struct {
 //
 //
 //
-func NewProducer(opt *ProducerOption) (*Producer, error) {
+func NewProducer(opt *ConnOption) (*Producer, error) {
 	p := new(Producer)
 
-	connection, err := amqp.Dial(opt.MQUri())
+	connection, err := amqp.Dial(opt.ConnUri())
 	if err != nil {
 		return p, fmt.Errorf("rabbitmq dial: %s", err)
 	}
 
 	p.conn = connection
-
 	return p, nil
 
 }
 
-func (m *Producer) Publish(exchange *Exchange, queue *Queue, tag string, routingKey string, message string, reliable bool) error {
+func (m *Producer) Publish(exchange *Exchange, queue *Queue, routingKey string, message string, reliable bool) error {
 	channel, err := m.conn.Channel()
 	if err != nil {
 		return fmt.Errorf("rabbitmq get channel error: %v'", err)
