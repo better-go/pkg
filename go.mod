@@ -4,6 +4,9 @@ go 1.13
 
 require (
 	github.com/Shopify/sarama v1.19.0
+	github.com/ambelovsky/go-structs v1.1.0 // indirect
+	github.com/ambelovsky/gosf v0.0.0-20201109201340-237aea4d6109
+	github.com/ambelovsky/gosf-socketio v0.0.0-20201109193639-add9d32f8b19 // indirect
 	github.com/beinan/fastid v0.0.0-20190107221622-c03a08f42c37
 	github.com/codahale/hdrhistogram v0.0.0-20161010025455-3a0bb77429bd // indirect
 	github.com/gin-gonic/gin v1.6.3
@@ -14,6 +17,8 @@ require (
 	github.com/golang/protobuf v1.4.2 // indirect
 	github.com/gomodule/redigo v2.0.0+incompatible
 	github.com/google/uuid v1.1.1
+	github.com/googollee/go-socket.io v1.4.4 // indirect
+	github.com/gorilla/websocket v1.4.2
 	github.com/jinzhu/gorm v1.9.12
 	github.com/jinzhu/now v1.1.1
 	github.com/jordan-wright/email v0.0.0-20200602115436-fd8a7622303e
@@ -26,6 +31,7 @@ require (
 	github.com/openzipkin/zipkin-go v0.2.1
 	github.com/pkg/errors v0.9.1
 	github.com/rs/xid v1.2.1
+	github.com/streadway/amqp v1.0.0
 	github.com/uber/jaeger-client-go v2.25.0+incompatible
 	github.com/uber/jaeger-lib v2.2.0+incompatible // indirect
 	github.com/ylywyn/jpush-api-go-client v0.0.0-20190906031852-8c4466c6e369

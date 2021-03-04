@@ -46,9 +46,13 @@ func Example() {
     - mysql 支持
     - 集成 `gorm v1, v2` 版本
 - [x] `cache`: 集成 `redis`
-- [x] `mq`: 集成 `kafka`
+- [x] `mq`: 
+    - [x] kafka: 集成 `kafka`
+    - [x] rabbitmq: 集成 `rabbitmq`, 有详细使用示例代码
 - [x] `net`:
     - [x] http: 集成 `gin` + `auth` API 路由鉴权
+    - [x] websocket: 集成 `websocket`, 双向通信, 有详细使用示例代码
+    - [x] socketIO: 类似 `websocket`, 双向通信, 有详细使用示例代码
 - [x] `config`:
     - [x] toml 格式配置文件读取
 - [x] `random`:
