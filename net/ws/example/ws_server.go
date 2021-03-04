@@ -12,24 +12,27 @@ func main() {
 
 	log.Infof("ws html file path: %v", homePage)
 
-	// ws echo endpoint:
-	http.HandleFunc("/echo", func(w http.ResponseWriter, r *http.Request) {
-		s := ws.NewWebSocketServer()
-
-		// loop do:
-		s.ServeHTTP(w, r, func(receivedMessage []byte) (responseMessage []byte, err error) {
+	s := ws.NewWebSocketServer(
+		func(receivedMessage []byte) (responseMessage []byte, err error) {
 			log.Infof("ws server: receive message: %v", string(receivedMessage))
 			resp := string(receivedMessage) + "### echo from server"
 			responseMessage = []byte(resp)
 			return responseMessage, nil
-		})
+		},
+		func(apiKey string) bool {
+			return true
+		},
+	)
 
-	})
+	// ws echo endpoint:
+	http.Handle("/echo", s.DispatchWithAuth())
 
 	// home page:
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		http.ServeFile(w, r, homePage)
 	})
+
+	log.Infof("ready to run, please check web browser: localhost:8080")
 
 	// http server:
 	http.ListenAndServe(":8080", nil)
