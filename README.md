@@ -16,7 +16,7 @@ golang pkg, common utils
 go get -u -v github.com/better-go/pkg
 
 # use specific tag:
-go get -u -v github.com/better-go/pkg@v0.1.1
+go get -u -v github.com/better-go/pkg@v0.1.5
 
 ```
 
