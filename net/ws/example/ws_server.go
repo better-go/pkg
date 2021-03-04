@@ -15,7 +15,7 @@ func main() {
 	s := ws.NewWebSocketServer(
 		func(receivedMessage []byte) (responseMessage []byte, err error) {
 			log.Infof("ws server: receive message: %v", string(receivedMessage))
-			resp := string(receivedMessage) + "### echo from server"
+			resp := string(receivedMessage) + " >>> echo from server"
 			responseMessage = []byte(resp)
 			return responseMessage, nil
 		},

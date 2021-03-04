@@ -109,6 +109,7 @@ func (m *WebSocketServer) authMiddleware(next http.Handler) http.Handler {
 			return
 		}
 
+		log.Infof("ws server: apiKey header auth pass, welcome")
 		//
 		// do next step:
 		//
