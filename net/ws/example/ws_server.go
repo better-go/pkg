@@ -20,6 +20,7 @@ func main() {
 			return responseMessage, nil
 		},
 		func(apiKey string) bool {
+			//return false // TODO: test ws auth
 			return true
 		},
 	)
