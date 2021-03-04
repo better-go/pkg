@@ -2,9 +2,8 @@
 <meta charset="utf-8"/>
 
 <div>
-  <h1>WebSocket Echo Test</h1>
-  <h2>Just open web browser:</h2>
-  <a href="http://localhost:8080/">http://localhost:8080/</a>
+  <h1>SocketIO Echo Test</h1>
+  <h2>Just open this html file in web browser.</h2>
 </div>
 
 <div>
@@ -19,7 +18,9 @@
 </div>
 
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.slim.js"></script>
 <script>
+
   var input = document.getElementById("input");
   var output = document.getElementById("output");
 
@@ -28,24 +29,24 @@
   // need keep sync !
   // need keep sync !
   // need keep sync !
-  var socket = new WebSocket("ws://localhost:8080/echo");
+  var socket = io.connect('ws://localhost:9999', {transports: ['websocket']});
 
 
-  //
-  //
-  //
-  //
-  //
   socket.onopen = function () {
     output.innerHTML += "Status: Connected\n";
   };
 
-  socket.onmessage = function (e) {
-    output.innerHTML += "Server: " + e.data + "\n";
-  };
 
   function send() {
-    socket.send(input.value);
+    socket.emit('echo', {text: input.value}, function (response) {
+      console.log(response);
+      output.innerHTML += "Server: " + response.text + "\n";
+    });
     input.value = "";
   }
+
+
 </script>
+
+
+

@@ -53,3 +53,16 @@ func (m *Message) ToProtoBuf() (to map[string]interface{}, err error) {
 	err = json.Unmarshal(m.data, &to)
 	return
 }
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+type SocketIOOption struct {
+	Addr string
+
+	Endpoints []SocketIOEndpoint
+}
+
+type SocketIOEndpoint struct {
+	Endpoint string
+	Handler  SocketIOMessageHandlerFunc
+}
