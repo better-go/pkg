@@ -21,7 +21,7 @@ docs:
 */
 
 // 接收消息+处理+生成待发送消息:
-type MessageHandler func(receivedMessage []byte) (responseMessage []byte, err error)
+type MessageHandlerFunc func(receivedMessage []byte) (responseMessage []byte, err error)
 
 // ws header auth: by api-key
 type AuthApiKeyValidateFunc func(apiKey string) bool
@@ -31,11 +31,11 @@ type WebSocketServer struct {
 	upgrade *websocket.Upgrader //
 	conn    *websocket.Conn     //
 
-	msgHandler    MessageHandler         // msg parse
+	msgHandler    MessageHandlerFunc     // msg parse
 	authValidator AuthApiKeyValidateFunc // auth check
 }
 
-func NewWebSocketServer(msgHandler MessageHandler, authValidator AuthApiKeyValidateFunc) *WebSocketServer {
+func NewWebSocketServer(msgHandler MessageHandlerFunc, authValidator AuthApiKeyValidateFunc) *WebSocketServer {
 	s := &WebSocketServer{
 		upgrade:       new(websocket.Upgrader), // use default options
 		msgHandler:    msgHandler,              // 只能在此处注册: 消息的处理(接收+处理+返回响应)
