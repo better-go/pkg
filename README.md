@@ -39,7 +39,7 @@ func Example() {
 
 ## features:
 
-- [x] `log`: 集成 `uber.log`, 开箱即用.
+- [x] `log`: [log/log.go](log/log.go) 集成 `uber.log`, 开箱即用.
 - [x] sync/async: `go func()` 优雅异步.
 - [x] `retry`: 通用重试wrap: 支持 backoff
 - [x] `orm` 集成: `gorm` 扩展
@@ -49,6 +49,8 @@ func Example() {
 - [x] `mq`: 
     - [x] kafka: 集成 `kafka`
     - [x] rabbitmq: 集成 `rabbitmq`, 有详细使用示例代码
+        - 生产者: [mq/rabbitmq/producer.go](mq/rabbitmq/producer.go)
+        - 消费者: [mq/rabbitmq/consumer.go](mq/rabbitmq/consumer.go)
 - [x] `net`:
     - [x] http: 集成 `gin` + `auth` API 路由鉴权
     - [x] websocket: 集成 `websocket`, 双向通信, 有详细使用示例代码
@@ -72,7 +74,11 @@ func Example() {
 - [x] `com`: 第三方企业 API SDK 接入
     - [x] jpush: 极光推送
     - [x] sendcloud: 搜狐短信服务
-
+- [x] `x`: 扩展一些框架
+    - [x] `gin`: 扩展代码
+        - 路由 wrap: [x/gin/router.go](x/gin/router.go) 自动处理 request args binding 和 response
+    - [x] `go-micro`: 
+    - [x] `go-zero`: 
 
 ## wiki:
 
