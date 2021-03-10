@@ -24,6 +24,7 @@ require (
 	github.com/jordan-wright/email v0.0.0-20200602115436-fd8a7622303e
 	github.com/json-iterator/go v1.1.10 // indirect
 	github.com/kr/pretty v0.2.0 // indirect
+	github.com/machinebox/graphql v0.2.2
 	github.com/micro/go-micro/v2 v2.8.0
 	github.com/microcosm-cc/bluemonday v1.0.2
 	github.com/opentracing/opentracing-go v1.1.1-0.20190913142402-a7454ce5950e
@@ -31,13 +32,14 @@ require (
 	github.com/openzipkin/zipkin-go v0.2.1
 	github.com/pkg/errors v0.9.1
 	github.com/rs/xid v1.2.1
+	github.com/shurcooL/graphql v0.0.0-20200928012149-18c5c3165e3a
 	github.com/streadway/amqp v1.0.0
 	github.com/uber/jaeger-client-go v2.25.0+incompatible
 	github.com/uber/jaeger-lib v2.2.0+incompatible // indirect
 	github.com/ylywyn/jpush-api-go-client v0.0.0-20190906031852-8c4466c6e369
 	go.uber.org/zap v1.15.0
 	golang.org/x/crypto v0.0.0-20200510223506-06a226fb4e37
-	golang.org/x/sys v0.0.0-20200622214017-ed371f2e16b4 // indirect
+	golang.org/x/net v0.0.0-20210226172049-e18ecbb05110 // indirect
 	golang.org/x/tools v0.0.0-20200501005904-d351ea090f9b // indirect
 	google.golang.org/protobuf v1.24.0 // indirect
 	gopkg.in/yaml.v2 v2.3.0 // indirect
