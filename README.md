@@ -52,7 +52,14 @@ func Example() {
 - [x] `net`:
     - [x] http: 集成 `gin` + `auth` API 路由鉴权
     - [x] websocket: 集成 `websocket`, 双向通信, 有详细使用示例代码
+        - server: [net/ws/websocket_server.go](net/ws/websocket_server.go)
+            - usage: [net/ws/example/ws_server.go](net/ws/example/ws_server.go)
     - [x] socketIO: 类似 `websocket`, 双向通信, 有详细使用示例代码
+        - server: 
+            - usage: [net/ws/example/socket_io/socket_io_server.go](net/ws/example/socket_io/socket_io_server.go)
+    - [x] graphql: 集成
+        - client: [net/graphql/graphql_client.go](net/graphql/graphql_client.go)
+        - server: [net/graphql/graphql_server.go](net/graphql/graphql_server.go)
 - [x] `config`:
     - [x] toml 格式配置文件读取
 - [x] `random`:
