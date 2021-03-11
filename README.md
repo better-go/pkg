@@ -4,7 +4,7 @@ golang pkg, common utils
 
 [![Go Version](https://img.shields.io/github/go-mod/go-version/better-go/pkg?filename=go.mod)](https://github.com/better-go/pkg/blob/master/go.mod)
 [![Go Report Card](https://goreportcard.com/badge/github.com/better-go/pkg)](https://goreportcard.com/report/github.com/better-go/pkg)
-![https://img.shields.io/github/release/better-go/pkg.svg?label="Latest Release"](https://github.com/better-go/pkg/releases)
+[![](https://img.shields.io/github/release/better-go/pkg.svg?label=Release)](https://github.com/better-go/pkg/releases)
 [![Release Date](https://img.shields.io/github/release-date/better-go/pkg)](https://github.com/better-go/pkg/releases)
 [![MIT License](https://img.shields.io/github/license/better-go/pkg)](https://github.com/better-go/pkg/blob/master/LICENSE)
 [![Stars](https://img.shields.io/github/stars/better-go/pkg?style=social)](https://img.shields.io/github/stars/better-go/pkg?style=social)
