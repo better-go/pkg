@@ -17,7 +17,6 @@ require (
 	github.com/golang/protobuf v1.4.2 // indirect
 	github.com/gomodule/redigo v2.0.0+incompatible
 	github.com/google/uuid v1.1.1
-	github.com/googollee/go-socket.io v1.4.4 // indirect
 	github.com/gorilla/websocket v1.4.2
 	github.com/jinzhu/gorm v1.9.12
 	github.com/jinzhu/now v1.1.1
@@ -25,12 +24,14 @@ require (
 	github.com/json-iterator/go v1.1.10 // indirect
 	github.com/kr/pretty v0.2.0 // indirect
 	github.com/machinebox/graphql v0.2.2
+	github.com/matryer/is v1.4.0 // indirect
 	github.com/micro/go-micro/v2 v2.8.0
 	github.com/microcosm-cc/bluemonday v1.0.2
 	github.com/opentracing/opentracing-go v1.1.1-0.20190913142402-a7454ce5950e
 	github.com/openzipkin-contrib/zipkin-go-opentracing v0.4.5
 	github.com/openzipkin/zipkin-go v0.2.1
 	github.com/pkg/errors v0.9.1
+	github.com/robfig/cron/v3 v3.0.1
 	github.com/rs/xid v1.2.1
 	github.com/shurcooL/graphql v0.0.0-20200928012149-18c5c3165e3a
 	github.com/streadway/amqp v1.0.0
