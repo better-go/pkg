@@ -22,19 +22,19 @@ golang pkg, common utils
 
 - install:
 
-```bash 
+```bash
 
 # use latest version:
 go get -u -v github.com/better-go/pkg
 
 # use specific tag:
-go get -u -v github.com/better-go/pkg@v0.1.6
+go get -u -v github.com/better-go/pkg@v0.1.7
 
 ```
 
 - usage:
 
-```golang 
+```golang
 
 import (
 	"github.com/better-go/pkg/random"
@@ -58,7 +58,7 @@ func Example() {
     - mysql 支持
     - 集成 `gorm v1, v2` 版本
 - [x] `cache`: 集成 `redis`
-- [x] `mq`: 
+- [x] `mq`:
     - [x] kafka: 集成 `kafka`
     - [x] rabbitmq: 集成 `rabbitmq`, 有详细使用示例代码
         - 生产者: [mq/rabbitmq/producer.go](mq/rabbitmq/producer.go)
@@ -69,7 +69,7 @@ func Example() {
         - server: [net/ws/websocket_server.go](net/ws/websocket_server.go)
             - usage: [net/ws/example/ws_server.go](net/ws/example/ws_server.go)
     - [x] socketIO: 类似 `websocket`, 双向通信, 有详细使用示例代码
-        - server: 
+        - server:
             - usage: [net/ws/example/socket_io/socket_io_server.go](net/ws/example/socket_io/socket_io_server.go)
     - [x] graphql: 集成
         - client: [net/graphql/graphql_client.go](net/graphql/graphql_client.go)
@@ -89,8 +89,8 @@ func Example() {
 - [x] `x`: 扩展一些框架
     - [x] `gin`: 扩展代码
         - 路由 wrap: [x/gin/router.go](x/gin/router.go) 自动处理 request args binding 和 response
-    - [x] `go-micro`: 
-    - [x] `go-zero`: 
+    - [x] `go-micro`:
+    - [x] `go-zero`:
 
 ## wiki:
 
