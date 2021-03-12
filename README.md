@@ -1,7 +1,5 @@
 # pkg
 
-- [x] golang pkg, common utils
-- [x] 集成各种常用 lib, 开箱即用
 
 [![Go Version](https://img.shields.io/github/go-mod/go-version/better-go/pkg?filename=go.mod)](https://github.com/better-go/pkg/blob/master/go.mod)
 [![Go Report Card](https://goreportcard.com/badge/github.com/better-go/pkg)](https://goreportcard.com/report/github.com/better-go/pkg)
@@ -11,6 +9,8 @@
 [![Stars](https://img.shields.io/github/stars/better-go/pkg?style=social)](https://img.shields.io/github/stars/better-go/pkg?style=social)
 
 
+- [x] golang pkg, common utils
+- [x] 集成各种常用 lib, 开箱即用
 
 
 
