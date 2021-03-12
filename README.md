@@ -100,11 +100,23 @@ func Example() {
 - https://github.com/better-go/pkg/wiki
 - go 编程规范
 
-## requirements:
+## reference:
 
 - uber.log
 - 目录结构参考: https://github.com/micro/go-plugins
+- 目录风格, 参考 go 标准库, 以及 `x` 库
+    - https://pkg.go.dev/search?q=golang.org/x
+- https://github.com/golang/text
 
+
+```bash
+
+go get golang.org/x/text
+go get golang.org/x/oauth2
+go get golang.org/x/net
+go get golang.org/x/crypto
+
+```
 
 ## research:
 
