@@ -1,6 +1,7 @@
 # pkg
-golang pkg, common utils
 
+- [x] golang pkg, common utils
+- [x] 集成各种常用 lib, 开箱即用
 
 [![Go Version](https://img.shields.io/github/go-mod/go-version/better-go/pkg?filename=go.mod)](https://github.com/better-go/pkg/blob/master/go.mod)
 [![Go Report Card](https://goreportcard.com/badge/github.com/better-go/pkg)](https://goreportcard.com/report/github.com/better-go/pkg)
@@ -86,6 +87,8 @@ func Example() {
 - [x] `com`: 第三方企业 API SDK 接入
     - [x] jpush: 极光推送
     - [x] sendcloud: 搜狐短信服务
+- [x] [cronjob](cronjob/cron.go): 集成 `cron job` 库, 开箱即用,
+    - 使用示例: [cronjob/example/example.go](cronjob/example/example.go)
 - [x] `x`: 扩展一些框架
     - [x] `gin`: 扩展代码
         - 路由 wrap: [x/gin/router.go](x/gin/router.go) 自动处理 request args binding 和 response
