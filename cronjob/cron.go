@@ -24,7 +24,8 @@ func New() *CronJob {
 	}
 }
 
-func (m *CronJob) RegisterTask(tasks ...TaskItem) (err error) {
+// 注册 task:
+func (m *CronJob) RegisterTask(tasks ...Task) (err error) {
 	// batch register:
 	for _, item := range tasks {
 		// register:
@@ -35,18 +36,11 @@ func (m *CronJob) RegisterTask(tasks ...TaskItem) (err error) {
 	return err
 }
 
-func (m *CronJob) Run(firstFn FirstRunFunc, scheduleFn ScheduleRunFunc) {
+// 注册和启动分开, 灵活调用位置
+func (m *CronJob) Run(tasks ...Task) {
+	// 允许在 run 中注册, 也可以分开, 传空即可
+	_ = m.RegisterTask(tasks...)
 
-	go firstFn()
-
-	//
-	scheduleFn()
+	// 启动:
+	m.cronJob.Start()
 }
-
-func (m *CronJob) runSchedule() {
-
-}
-
-type FirstRunFunc func()
-
-type ScheduleRunFunc func()
