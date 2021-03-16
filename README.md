@@ -29,7 +29,7 @@
 go get -u -v github.com/better-go/pkg
 
 # use specific tag:
-go get -u -v github.com/better-go/pkg@v0.1.8
+go get -u -v github.com/better-go/pkg@v0.1.9
 
 ```
 
@@ -94,6 +94,7 @@ func Example() {
         - 路由 wrap: [x/gin/router.go](x/gin/router.go) 自动处理 request args binding 和 response
     - [x] `go-micro`:
     - [x] `go-zero`:
+        - [x] 微服务启动器: [x/go-zero/cmd/cmd.go](x/go-zero/cmd/cmd.go)
 
 ## wiki:
 
