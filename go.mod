@@ -14,7 +14,6 @@ require (
 	github.com/go-redis/redis/v8 v8.0.0-beta.4
 	github.com/go-sql-driver/mysql v1.5.0
 	github.com/gocarina/gocsv v0.0.0-20200330101823-46266ca37bd3
-	github.com/golang/protobuf v1.4.2 // indirect
 	github.com/gomodule/redigo v2.0.0+incompatible
 	github.com/google/uuid v1.1.1
 	github.com/gorilla/websocket v1.4.2
@@ -22,7 +21,6 @@ require (
 	github.com/jinzhu/now v1.1.1
 	github.com/jordan-wright/email v0.0.0-20200602115436-fd8a7622303e
 	github.com/json-iterator/go v1.1.10 // indirect
-	github.com/kr/pretty v0.2.0 // indirect
 	github.com/machinebox/graphql v0.2.2
 	github.com/matryer/is v1.4.0 // indirect
 	github.com/micro/go-micro/v2 v2.8.0
@@ -35,20 +33,21 @@ require (
 	github.com/rs/xid v1.2.1
 	github.com/shurcooL/graphql v0.0.0-20200928012149-18c5c3165e3a
 	github.com/streadway/amqp v1.0.0
+	github.com/tal-tech/go-zero v1.1.5
 	github.com/uber/jaeger-client-go v2.25.0+incompatible
 	github.com/uber/jaeger-lib v2.2.0+incompatible // indirect
+	github.com/urfave/cli/v2 v2.3.0
 	github.com/ylywyn/jpush-api-go-client v0.0.0-20190906031852-8c4466c6e369
 	go.uber.org/zap v1.15.0
-	golang.org/x/crypto v0.0.0-20200510223506-06a226fb4e37
+	golang.org/x/crypto v0.0.0-20200622213623-75b288015ac9
 	golang.org/x/net v0.0.0-20210226172049-e18ecbb05110 // indirect
 	golang.org/x/tools v0.0.0-20200501005904-d351ea090f9b // indirect
-	google.golang.org/protobuf v1.24.0 // indirect
-	gopkg.in/yaml.v2 v2.3.0 // indirect
 	gorm.io/driver/mysql v0.2.0
 	gorm.io/gorm v0.2.7
 )
 
 replace (
-	github.com/coreos/go-systemd => github.com/coreos/go-systemd/v22 v22.0.0
+	// github.com/coreos/go-systemd => github.com/coreos/go-systemd/v22 latest
+	github.com/coreos/go-systemd => github.com/coreos/go-systemd/v22 v22.2.0
 	google.golang.org/grpc => google.golang.org/grpc v1.26.0
 )
