@@ -50,8 +50,6 @@ const (
 
 type (
 	Signer struct {
-		Data url.Values
-
 		lock sync.RWMutex      // 锁
 		keys map[string]string // cached key map // TODO: 主动过期, 避免 key pair 泄露问题
 
@@ -71,7 +69,6 @@ type (
 func New(publicKeyName string, nonceName string, timestampName string) *Signer {
 	// use default name:
 	s := &Signer{
-		Data:           make(url.Values),
 		keys:           make(map[string]string),
 		publicKeyName:  SignPublicKeyName,
 		privateKeyName: SignPrivateKeyName,
