@@ -29,7 +29,7 @@
 go get -u -v github.com/better-go/pkg
 
 # use specific tag:
-go get -u -v github.com/better-go/pkg@v0.1.9
+go get -u -v github.com/better-go/pkg@v0.1.10
 
 ```
 
@@ -83,7 +83,9 @@ func Example() {
 - [x] `text`:
     - [x] xss: 预防 xss 校验
 - [x] `time`: 大量时间方法扩展
+    - 生成时间戳
 - [x] `crypto`: 密码加密/验证
+    - sign: 签名机制: 生成签名/验证签名
 - [x] `com`: 第三方企业 API SDK 接入
     - [x] jpush: 极光推送
     - [x] sendcloud: 搜狐短信服务
