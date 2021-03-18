@@ -3,15 +3,14 @@ package signature
 import (
 	"crypto/md5"
 	"encoding/hex"
-	"github.com/better-go/pkg/log"
 	"net/url"
 	"strings"
 	"sync"
+
+	"github.com/better-go/pkg/log"
 )
 
 /*
-
-
 API 参数增加签名验证机制:
 	- 字段:
 		- data
@@ -23,9 +22,11 @@ API 参数增加签名验证机制:
 		- sign_type
 
 	- 签名规则:
-		- 待签名数据部分: data 字段 排序 + 拼接 nonce + timestamp
+		- 待签名数据部分: data 字段 + 拼接 nonce + timestamp + public_key + sign_type, 一起排序
+			- 示例: address=shanghai&age=22&key1=a1&key2=b1&name=kate&nonce=705935809601077250&public_key=this-is-public-key&sex=girl&sign_type=md5&ts=1616053176
+			- sign 值: 95d483f5eae66707965dfecf312c6cdf
+			- privateKey: "use-this-do-sign"
 		- 签名出 sign 值( sign 值 签名部分, 不含 app_key 和 app_secret)
-		-  + app_key + app_secret,
 
 	- 签名算法:
 		- md5
