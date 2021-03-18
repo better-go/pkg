@@ -12,14 +12,19 @@ import (
 
 /*
 API 参数增加签名验证机制:
+	- 应用场景:
+		- http/rpc api: 参数签名, 防止中间人攻击
+			- 区别 token auth, token auth 解决用户登录认证
+			- sign: 解决 合法数据被劫持/伪造/重放(中间人攻击)
+		- mq 队列消息: 参数签名, 防止伪造消息
 	- 字段:
-		- data
-		- timestamp
-		- app_key
-		- app_secret
-		- nonce
-		- sign
-		- sign_type
+		- data: 原始数据 map
+		- timestamp: 过期保护, 防止重放攻击(目前未做 timeout 保护)
+		- nonce: 防止重复
+		- sign: 签名结果
+		- sign_type: 签名算法类型
+		- app_key/public_key: 公钥
+		- app_secret/private_key: 私钥
 
 	- 签名规则:
 		- 待签名数据部分: data 字段 + 拼接 nonce + timestamp + public_key + sign_type, 一起排序
