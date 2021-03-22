@@ -124,7 +124,7 @@ func TestSigner_SignSHA256(t *testing.T) {
 			"public_key": []string{publicKey},
 			"nonce":      []string{nonce},
 			"ts":         []string{ts},
-			"sign":       []string{"a2f3b946f9cc4a885275687c0fa4bdfe01f8a9e9c56e31969ae547b60af3f19f"},
+			"sign":       []string{""},
 		},
 		{
 			"key1":       []string{"a1"},
@@ -136,7 +136,7 @@ func TestSigner_SignSHA256(t *testing.T) {
 			"public_key": []string{publicKey},
 			"nonce":      []string{nonce},
 			"ts":         []string{ts},
-			"sign":       []string{"64255506677740d621bab1a1f1e36d409d51923cf1d6881ae706d839ce9081f7"},
+			"sign":       []string{""},
 		},
 	}
 
@@ -151,7 +151,7 @@ func TestSigner_SignSHA256(t *testing.T) {
 			"public_key": []string{publicKey},
 			"nonce":      []string{nonce},
 			"ts":         []string{ts},
-			"sign":       []string{"a2f3b946f9cc4a885275687c0fa4bdfe01f8a9e9c56e31969ae547b60af3f19f"},
+			"sign":       []string{"e982271cde77017384482e7389c211f609d5b124ca311f874efb10aa7b6fa0df"},
 		},
 		{
 			"key1":       []string{"a1"},
@@ -163,7 +163,7 @@ func TestSigner_SignSHA256(t *testing.T) {
 			"public_key": []string{publicKey},
 			"nonce":      []string{nonce},
 			"ts":         []string{ts},
-			"sign":       []string{"64255506677740d621bab1a1f1e36d409d51923cf1d6881ae706d839ce9081f7"},
+			"sign":       []string{"c4f41a3cc87e9c21026f4b22f67d2a62c21befa2731d9ec6d9c63a1d69209b35"},
 		},
 	}
 
@@ -217,7 +217,7 @@ func TestSigner_SignSHA512(t *testing.T) {
 			"public_key": []string{publicKey},
 			"nonce":      []string{nonce},
 			"ts":         []string{ts},
-			"sign":       []string{"91dacd0f5bad8f6c17c9dc3e632c0dcede777018b2b34a6f56f109c6ca5e8b299a05b571ffd4da3ca65c8bf7b4de624fd0fcbe27ba6bea06dcf8b97bc0bc6ebc"},
+			"sign":       []string{""},
 		},
 		{
 			"key1":       []string{"a1"},
@@ -229,7 +229,7 @@ func TestSigner_SignSHA512(t *testing.T) {
 			"public_key": []string{publicKey},
 			"nonce":      []string{nonce},
 			"ts":         []string{ts},
-			"sign":       []string{"6e484eb7924ab926eb5197b02339f7db50bc74eadc5618fb627c5127f7e1eeea3380de50d0a8f3ad878e8ce08b967bf044be4398a10d86961335404022bab959"},
+			"sign":       []string{""},
 		},
 	}
 
@@ -244,7 +244,7 @@ func TestSigner_SignSHA512(t *testing.T) {
 			"public_key": []string{publicKey},
 			"nonce":      []string{nonce},
 			"ts":         []string{ts},
-			"sign":       []string{"91dacd0f5bad8f6c17c9dc3e632c0dcede777018b2b34a6f56f109c6ca5e8b299a05b571ffd4da3ca65c8bf7b4de624fd0fcbe27ba6bea06dcf8b97bc0bc6ebc"},
+			"sign":       []string{"986e4653ac747d9d5f4daf32b9b5c947210c7a964f1c6d06a7e3c41e142d4908c4fb511c9427d2440bf73a9133f3e86af49c6fa7ec08318646c6689415eb015b"},
 		},
 		{
 			"key1":       []string{"a1"},
@@ -256,7 +256,7 @@ func TestSigner_SignSHA512(t *testing.T) {
 			"public_key": []string{publicKey},
 			"nonce":      []string{nonce},
 			"ts":         []string{ts},
-			"sign":       []string{"6e484eb7924ab926eb5197b02339f7db50bc74eadc5618fb627c5127f7e1eeea3380de50d0a8f3ad878e8ce08b967bf044be4398a10d86961335404022bab959"},
+			"sign":       []string{"0d65094fff94490b4054d859dc82a4b28cbeabeb403a2d911552272cacc9b481c81cf247d80279f1d19807ce157807573506a916e1b13f6ab949cc98f8850f4a"},
 		},
 	}
 
