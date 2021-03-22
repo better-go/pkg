@@ -75,12 +75,12 @@ func TestSigner_SignMD5(t *testing.T) {
 	}
 
 	for _, item := range in {
-		sign := signer.Sign(item, publicKey, nonce, ts, false,
+		sign := signer.Sign(item, publicKey, nonce, ts, SignTypeMD5, false,
 			func(publicKey string) (privateKey string, err error) {
 				return secretKey, nil
 			},
 			func(data string, privateKey string) (digest string) {
-				return signer.WithMD5(data, privateKey)
+				return WithMD5(data, privateKey)
 			},
 		)
 		t.Logf("sign: %v, item =%+v", sign, item)
@@ -89,12 +89,12 @@ func TestSigner_SignMD5(t *testing.T) {
 
 	// Sign:  will change item (del sign field)
 	for _, item := range expect {
-		ok := signer.Verify(item, false,
+		ok := signer.Verify(item, SignTypeMD5, false,
 			func(publicKey string) (privateKey string, err error) {
 				return secretKey, nil
 			},
 			func(data string, privateKey string) (digest string) {
-				return signer.WithMD5(data, privateKey)
+				return WithMD5(data, privateKey)
 			},
 		)
 		t.Logf("verify: %v", ok)
@@ -168,12 +168,12 @@ func TestSigner_SignSHA256(t *testing.T) {
 	}
 
 	for _, item := range in {
-		sign := signer.Sign(item, publicKey, nonce, ts, false,
+		sign := signer.Sign(item, publicKey, nonce, ts, SignTypeSHA256, false,
 			func(publicKey string) (privateKey string, err error) {
 				return secretKey, nil
 			},
 			func(data string, privateKey string) (digest string) {
-				return signer.WithSHA256(data, privateKey)
+				return WithSHA256(data, privateKey)
 			},
 		)
 		t.Logf("sign: %v, item =%+v", sign, item)
@@ -182,12 +182,12 @@ func TestSigner_SignSHA256(t *testing.T) {
 
 	// Sign:  will change item (del sign field)
 	for _, item := range expect {
-		ok := signer.Verify(item, false,
+		ok := signer.Verify(item, SignTypeSHA256, false,
 			func(publicKey string) (privateKey string, err error) {
 				return secretKey, nil
 			},
 			func(data string, privateKey string) (digest string) {
-				return signer.withSHA256v2(data, privateKey)
+				return withSHA256v2(data, privateKey)
 			},
 		)
 		t.Logf("verify: %v", ok)
@@ -261,12 +261,12 @@ func TestSigner_SignSHA512(t *testing.T) {
 	}
 
 	for _, item := range in {
-		sign := signer.Sign(item, publicKey, nonce, ts, false,
+		sign := signer.Sign(item, publicKey, nonce, ts, SignTypeSHA512, false,
 			func(publicKey string) (privateKey string, err error) {
 				return secretKey, nil
 			},
 			func(data string, privateKey string) (digest string) {
-				return signer.WithSHA512(data, privateKey)
+				return WithSHA512(data, privateKey)
 			},
 		)
 
@@ -281,12 +281,12 @@ func TestSigner_SignSHA512(t *testing.T) {
 
 	// Sign:  will change item (del sign field)
 	for _, item := range expect {
-		ok := signer.Verify(item, false,
+		ok := signer.Verify(item, SignTypeSHA512, false,
 			func(publicKey string) (privateKey string, err error) {
 				return secretKey, nil
 			},
 			func(data string, privateKey string) (digest string) {
-				return signer.withSHA512v2(data, privateKey)
+				return withSHA512v2(data, privateKey)
 			},
 		)
 
