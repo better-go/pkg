@@ -2,6 +2,8 @@ package signature
 
 import (
 	"crypto/md5"
+	"crypto/sha256"
+	"crypto/sha512"
 	"encoding/hex"
 	"net/url"
 	"strings"
@@ -28,7 +30,7 @@ API 参数增加签名验证机制:
 
 	- 签名规则:
 		- 待签名数据部分: data 字段 + 拼接 nonce + timestamp + public_key + sign_type, 一起排序
-			- 示例: address=shanghai&age=22&key1=a1&key2=b1&name=kate&nonce=705935809601077250&public_key=this-is-public-key&sex=girl&sign_type=md5&ts=1616053176
+			- 示例: address=shanghai&age=22&key1=a1&key2=b1&name=kate&nonce=705935809601077250&public_key=this-is-public-key&sex=girl&sign_type=useMD5&ts=1616053176
 			- sign 值: 95d483f5eae66707965dfecf312c6cdf
 			- privateKey: "use-this-do-sign"
 		- 签名出 sign 值( sign 值 签名部分, 不含 app_key 和 app_secret)
@@ -70,6 +72,9 @@ type (
 
 	// get appSecret/privateKey by appKey/publicKey
 	PrivateKeyFunc func(publicKey string) (privateKey string, err error)
+
+	// 签名算法: useMD5/sha256/sha512
+	SignAlgorithmFunc func(data string, privateKey string) (digest string)
 )
 
 func New(publicKeyName string, nonceName string, timestampName string) *Signer {
@@ -98,7 +103,15 @@ func New(publicKeyName string, nonceName string, timestampName string) *Signer {
 }
 
 // 签名生成:
-func (m *Signer) SignMD5(payload url.Values, publicKey string, nonce string, timestamp string, toLower bool, keyFn PrivateKeyFunc) (sign string) {
+func (m *Signer) Sign(
+	payload url.Values,
+	publicKey string,
+	nonce string,
+	timestamp string,
+	toLower bool,
+	keyFn PrivateKeyFunc, // 私钥获取方法
+	signFn SignAlgorithmFunc, // 签名算法
+) (sign string) {
 	// pack args:
 	pack := m.pack(payload, publicKey, nonce, timestamp, SignMD5)
 
@@ -119,12 +132,16 @@ func (m *Signer) SignMD5(payload url.Values, publicKey string, nonce string, tim
 	privateKey := m.privateKey(publicKey, keyFn)
 
 	// do sign:
-	digest := md5.Sum([]byte(data + privateKey))
-	return hex.EncodeToString(digest[:])
+	return signFn(data, privateKey)
 }
 
 // 签名验证:
-func (m *Signer) VerifyMD5(data url.Values, toLower bool, keyFn PrivateKeyFunc) bool {
+func (m *Signer) Verify(
+	data url.Values,
+	toLower bool,
+	keyFn PrivateKeyFunc,
+	signFn SignAlgorithmFunc,
+) bool {
 	log.Debugf("verify: data=%+v", data)
 	// raw data sign value:
 	sign := data.Get(m.signResultName)
@@ -138,10 +155,155 @@ func (m *Signer) VerifyMD5(data url.Values, toLower bool, keyFn PrivateKeyFunc) 
 	timestamp := data.Get(m.timestampName)
 
 	// new sign:
-	newSign := m.SignMD5(data, publicKey, nonce, timestamp, toLower, keyFn)
+	newSign := m.Sign(data, publicKey, nonce, timestamp, toLower, keyFn, signFn)
 	log.Debugf("verify: old sign=%v, new sign=%v", sign, newSign)
 	return sign == newSign
 }
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+func (m *Signer) SignMD5(payload url.Values,
+	publicKey string,
+	nonce string,
+	timestamp string,
+	toLower bool,
+	keyFn PrivateKeyFunc, // 私钥获取方法
+) string {
+	return m.Sign(
+		payload,
+		publicKey,
+		nonce,
+		timestamp,
+		toLower,
+		keyFn,
+		func(data string, privateKey string) (digest string) {
+			return m.WithMD5(data, privateKey)
+		},
+	)
+}
+
+func (m *Signer) VerifyMD5(
+	data url.Values,
+	toLower bool,
+	keyFn PrivateKeyFunc,
+) bool {
+	return m.Verify(
+		data,
+		toLower,
+		keyFn,
+		func(data string, privateKey string) (digest string) {
+			return m.WithMD5(data, privateKey)
+		},
+	)
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// sign with SHA256:
+func (m *Signer) SignSHA256(payload url.Values,
+	publicKey string,
+	nonce string,
+	timestamp string,
+	toLower bool,
+	keyFn PrivateKeyFunc, // 私钥获取方法
+) string {
+	return m.Sign(
+		payload,
+		publicKey,
+		nonce,
+		timestamp,
+		toLower,
+		keyFn,
+		func(data string, privateKey string) (digest string) {
+			return m.WithSHA256(data, privateKey)
+		},
+	)
+}
+
+func (m *Signer) VerifySHA256(
+	data url.Values,
+	toLower bool,
+	keyFn PrivateKeyFunc,
+) bool {
+	return m.Verify(
+		data,
+		toLower,
+		keyFn,
+		func(data string, privateKey string) (digest string) {
+			return m.WithSHA256(data, privateKey)
+		},
+	)
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// sign with SHA512:
+func (m *Signer) SignSHA512(payload url.Values,
+	publicKey string,
+	nonce string,
+	timestamp string,
+	toLower bool,
+	keyFn PrivateKeyFunc, // 私钥获取方法
+) string {
+	return m.Sign(
+		payload,
+		publicKey,
+		nonce,
+		timestamp,
+		toLower,
+		keyFn,
+		func(data string, privateKey string) (digest string) {
+			return m.WithSHA512(data, privateKey)
+		},
+	)
+}
+
+func (m *Signer) VerifySHA512(
+	data url.Values,
+	toLower bool,
+	keyFn PrivateKeyFunc,
+) bool {
+	return m.Verify(
+		data,
+		toLower,
+		keyFn,
+		func(data string, privateKey string) (digest string) {
+			return m.WithSHA512(data, privateKey)
+		},
+	)
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+func (m *Signer) WithMD5(data string, privateKey string) string {
+	// do sign:
+	digest := md5.Sum([]byte(data + privateKey))
+	return hex.EncodeToString(digest[:])
+}
+
+func (m *Signer) WithSHA256(data string, privateKey string) string {
+	input := []byte(data + privateKey)
+
+	h := sha256.New()
+	h.Write(input)
+
+	// do sign:
+	digest := h.Sum(nil)
+	return hex.EncodeToString(digest[:])
+}
+
+func (m *Signer) WithSHA512(data string, privateKey string) string {
+	input := []byte(data + privateKey)
+
+	h := sha512.New()
+	h.Write(input)
+
+	// do sign:
+	digest := h.Sum(nil)
+	return hex.EncodeToString(digest[:])
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // get privateKey:
 func (m *Signer) privateKey(publicKey string, keyFn PrivateKeyFunc) (privateKey string) {

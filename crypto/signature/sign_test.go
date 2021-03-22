@@ -75,19 +75,28 @@ func TestSigner_SignMD5(t *testing.T) {
 	}
 
 	for _, item := range in {
-		sign := signer.SignMD5(item, publicKey, nonce, ts, false, func(publicKey string) (privateKey string, err error) {
-			return secretKey, nil
-		})
+		sign := signer.Sign(item, publicKey, nonce, ts, false,
+			func(publicKey string) (privateKey string, err error) {
+				return secretKey, nil
+			},
+			func(data string, privateKey string) (digest string) {
+				return signer.WithMD5(data, privateKey)
+			},
+		)
 		t.Logf("sign: %v, item =%+v", sign, item)
 
 	}
 
-	// SignMD5:  will change item (del sign field)
+	// Sign:  will change item (del sign field)
 	for _, item := range expect {
-		ok := signer.VerifyMD5(item, false, func(publicKey string) (privateKey string, err error) {
-			return secretKey, nil
-		})
+		ok := signer.Verify(item, false,
+			func(publicKey string) (privateKey string, err error) {
+				return secretKey, nil
+			},
+			func(data string, privateKey string) (digest string) {
+				return signer.WithMD5(data, privateKey)
+			},
+		)
 		t.Logf("verify: %v", ok)
 	}
-
 }
