@@ -292,6 +292,15 @@ func (m *Signer) WithSHA256(data string, privateKey string) string {
 	return hex.EncodeToString(digest[:])
 }
 
+// 等价写法:
+func (m *Signer) withSHA256v2(data string, privateKey string) string {
+	input := []byte(data + privateKey)
+
+	// do sign:
+	digest := sha256.Sum256(input)
+	return hex.EncodeToString(digest[:])
+}
+
 func (m *Signer) WithSHA512(data string, privateKey string) string {
 	input := []byte(data + privateKey)
 
@@ -300,6 +309,15 @@ func (m *Signer) WithSHA512(data string, privateKey string) string {
 
 	// do sign:
 	digest := h.Sum(nil)
+	return hex.EncodeToString(digest[:])
+}
+
+// 等价写法:
+func (m *Signer) withSHA512v2(data string, privateKey string) string {
+	input := []byte(data + privateKey)
+
+	// do sign:
+	digest := sha512.Sum512(input)
 	return hex.EncodeToString(digest[:])
 }
 
