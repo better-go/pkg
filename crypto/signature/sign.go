@@ -58,8 +58,8 @@ type (
 		keys map[string]string // cached key map // TODO: 主动过期, 避免 key pair 泄露问题
 
 		// sign common fields:
-		publicKeyName  string
-		privateKeyName string
+		publicKeyName  string // 字段名: 私钥 默认 SignPublicKeyName
+		privateKeyName string // 字段名: 私钥
 		nonceName      string
 		timestampName  string
 		signTypeName   string
@@ -67,7 +67,7 @@ type (
 	}
 
 	// get appSecret/privateKey by appKey/publicKey
-	PrivateKeyFunc func(publicKey string) (privateKey string, err error)
+	PrivateKeyFunc func(publicKey string) (key string, err error)
 
 	// 签名算法: useMD5/sha256/sha512
 	SignAlgorithmFunc func(data string, privateKey string) (digest string)
@@ -200,11 +200,12 @@ func (m *Signer) VerifyMD5(
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // sign with SHA256:
-func (m *Signer) SignSHA256(payload url.Values,
-	publicKey string,
-	nonce string,
-	timestamp string,
-	toLower bool,
+func (m *Signer) SignSHA256(
+	payload url.Values, // 数据
+	publicKey string, // 公钥
+	nonce string, // 随机串
+	timestamp string, // 时间戳
+	toLower bool, // 是否转小写
 	keyFn PrivateKeyFunc, // 私钥获取方法
 ) string {
 	return m.Sign(
@@ -319,3 +320,27 @@ func (m *Signer) pack(payload url.Values, publicKey string, nonce string, timest
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// use default field name:
+func SignSHA256(
+	payload url.Values, // 数据
+	publicKey string, // 公钥
+	nonce string, // 随机串
+	timestamp string, // 时间戳
+	toLower bool, // 是否转小写
+	keyFn PrivateKeyFunc, // 私钥获取方法
+
+) string {
+	signer := New("", "", "")
+	return signer.SignSHA256(payload, publicKey, nonce, timestamp, toLower, keyFn)
+}
+
+// use default field name:
+func VerifySHA256(
+	data url.Values, // 数据
+	toLower bool, // 是否转小写
+	keyFn PrivateKeyFunc, // 私钥获取方法
+) bool {
+	signer := New("", "", "")
+	return signer.VerifySHA256(data, toLower, keyFn)
+}

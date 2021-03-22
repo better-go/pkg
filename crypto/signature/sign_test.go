@@ -297,3 +297,89 @@ func TestSigner_SignSHA512(t *testing.T) {
 		t.Logf("verify: %v, %v", ok, ok)
 	}
 }
+
+func TestSignSHA256(t *testing.T) {
+
+	publicKey := "this-is-public-key"
+	secretKey := "use-this-do-sign"
+
+	nonce := fmt.Sprintf("%v", random.SnowFlakeID())
+	ts := time.Gen10BitTimestamp()
+	// set:
+	nonce = "705935809601077250"
+	ts = "1616053176"
+
+	in := []url.Values{
+		{
+			"key1":       []string{"a1"},
+			"key2":       []string{"b1"},
+			"name":       []string{"jim"},
+			"age":        []string{"22"},
+			"sex":        []string{"boy"},
+			"address":    []string{"beijing"},
+			"public_key": []string{publicKey},
+			"nonce":      []string{nonce},
+			"ts":         []string{ts},
+			"sign":       []string{""},
+		},
+		{
+			"key1":       []string{"a1"},
+			"key2":       []string{"b1"},
+			"name":       []string{"kate"},
+			"age":        []string{"22"},
+			"sex":        []string{"girl"},
+			"address":    []string{"shanghai"},
+			"public_key": []string{publicKey},
+			"nonce":      []string{nonce},
+			"ts":         []string{ts},
+			"sign":       []string{""},
+		},
+	}
+
+	expect := []url.Values{
+		{
+			"key1":       []string{"a1"},
+			"key2":       []string{"b1"},
+			"name":       []string{"jim"},
+			"age":        []string{"22"},
+			"sex":        []string{"boy"},
+			"address":    []string{"beijing"},
+			"public_key": []string{publicKey},
+			"nonce":      []string{nonce},
+			"ts":         []string{ts},
+			"sign":       []string{"e982271cde77017384482e7389c211f609d5b124ca311f874efb10aa7b6fa0df"},
+		},
+		{
+			"key1":       []string{"a1"},
+			"key2":       []string{"b1"},
+			"name":       []string{"kate"},
+			"age":        []string{"22"},
+			"sex":        []string{"girl"},
+			"address":    []string{"shanghai"},
+			"public_key": []string{publicKey},
+			"nonce":      []string{nonce},
+			"ts":         []string{ts},
+			"sign":       []string{"c4f41a3cc87e9c21026f4b22f67d2a62c21befa2731d9ec6d9c63a1d69209b35"},
+		},
+	}
+
+	for _, item := range in {
+		sign := SignSHA256(item, publicKey, nonce, ts, false,
+			func(publicKey string) (privateKey string, err error) {
+				return secretKey, nil
+			},
+		)
+		t.Logf("sign: %v, item =%+v", sign, item)
+
+	}
+
+	// Sign:  will change item (del sign field)
+	for _, item := range expect {
+		ok := VerifySHA256(item, false,
+			func(publicKey string) (privateKey string, err error) {
+				return secretKey, nil
+			},
+		)
+		t.Logf("verify: %v", ok)
+	}
+}
