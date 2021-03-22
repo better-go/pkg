@@ -84,8 +84,9 @@ func Example() {
     - [x] xss: 预防 xss 校验
 - [x] `time`: 大量时间方法扩展
     - 生成时间戳
-- [x] `crypto`: 密码加密/验证
-    - sign: 签名机制: 生成签名/验证签名
+- [x] [crypto](crypto)`: 加密/解密工具
+    - [x] [signature](crypto/signature/sign.go): 通用签名机制: 生成/验证 - 支持 `md5/sha256/sha512` + `nonce` + `ts`
+    - [x] [password](crypto/password.go): 密码: 加密/验证 - 使用 `bcrypt` 算法
 - [x] `com`: 第三方企业 API SDK 接入
     - [x] jpush: 极光推送
     - [x] sendcloud: 搜狐短信服务
