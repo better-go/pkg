@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 	"net/url"
 	"sort"
-	"strconv"
 	"strings"
 
 	"github.com/better-go/pkg/log"
@@ -63,11 +62,11 @@ func (m Dict) Encode() string {
 		switch item := v.(type) {
 		case string:
 			valueEscaped = url.QueryEscape(item)
-		case []byte:
-			valueEscaped = url.QueryEscape(string(item))
-		case int:
-			s := strconv.Itoa(item)
-			valueEscaped = url.QueryEscape(s)
+		//case []byte:
+		//	valueEscaped = url.QueryEscape(string(item))
+		//case int:
+		//	s := strconv.Itoa(item)
+		//	valueEscaped = url.QueryEscape(s)
 		default:
 			s, err := json.Marshal(item) // TODO: 无法识别的对象类型, 先转换成 json, 再处理
 			if err != nil {
