@@ -117,7 +117,9 @@ func (m *Signer) Sign(
 	signFn SignAlgorithmFunc, // 签名算法
 ) (sign string) {
 	// pack args:
+	oldSign := payload.Get(m.signResultName)
 	pack := m.pack(payload, publicKey, nonce, timestamp, signType)
+	defer payload.Set(m.signResultName, oldSign) // TODO: reset back
 
 	// do convert:
 	data := pack.Encode()
