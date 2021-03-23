@@ -1,9 +1,10 @@
 package convert
 
 import (
+	"net/url"
+
 	"github.com/better-go/pkg/container/dict"
 	"github.com/better-go/pkg/log"
-	"net/url"
 )
 
 // 注意: 这个方法不安全, 要确定 值, 只有一个才可以使用, 否则丢数据
