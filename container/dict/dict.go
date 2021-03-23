@@ -4,6 +4,8 @@ import (
 	"net/url"
 	"sort"
 	"strings"
+
+	"github.com/better-go/pkg/log"
 )
 
 /*
@@ -48,8 +50,15 @@ func (m Dict) Encode() string {
 		v := m[k]
 		keyEscaped := url.QueryEscape(k)
 
+		item, ok := v.(string)
+		if !ok {
+			log.Infof("invalid type, skip convert this field, key=%v, value=%+v", k, v)
+			// skip
+			continue
+		}
+
 		// TODO: need fix type: string/[]bytes
-		valueEscaped := url.QueryEscape(v.(string))
+		valueEscaped := url.QueryEscape(item)
 
 		// combine pairs:
 		if buf.Len() > 0 {
