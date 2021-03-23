@@ -2,10 +2,12 @@ package signature
 
 import (
 	"fmt"
-	"github.com/better-go/pkg/random"
-	"github.com/better-go/pkg/time"
 	"net/url"
 	"testing"
+
+	"github.com/better-go/pkg/convert"
+	"github.com/better-go/pkg/random"
+	"github.com/better-go/pkg/time"
 )
 
 func TestSigner_SignMD5(t *testing.T) {
@@ -75,7 +77,9 @@ func TestSigner_SignMD5(t *testing.T) {
 	}
 
 	for _, item := range in {
-		sign := signer.Sign(item, publicKey, nonce, ts, SignTypeMD5, false,
+
+		v := convert.StringsDictToDict(item)
+		sign := signer.Sign(v, publicKey, nonce, ts, SignTypeMD5, false,
 			func(publicKey string) (privateKey string, err error) {
 				return secretKey, nil
 			},
@@ -89,7 +93,8 @@ func TestSigner_SignMD5(t *testing.T) {
 
 	// Sign:  will change item (del sign field)
 	for _, item := range expect {
-		ok := signer.Verify(item, SignTypeMD5, false,
+		v := convert.StringsDictToDict(item)
+		ok := signer.Verify(v, SignTypeMD5, false,
 			func(publicKey string) (privateKey string, err error) {
 				return secretKey, nil
 			},
@@ -168,7 +173,8 @@ func TestSigner_SignSHA256(t *testing.T) {
 	}
 
 	for _, item := range in {
-		sign := signer.Sign(item, publicKey, nonce, ts, SignTypeSHA256, false,
+		v := convert.StringsDictToDict(item)
+		sign := signer.Sign(v, publicKey, nonce, ts, SignTypeSHA256, false,
 			func(publicKey string) (privateKey string, err error) {
 				return secretKey, nil
 			},
@@ -182,7 +188,8 @@ func TestSigner_SignSHA256(t *testing.T) {
 
 	// Sign:  will change item (del sign field)
 	for _, item := range expect {
-		ok := signer.Verify(item, SignTypeSHA256, false,
+		v := convert.StringsDictToDict(item)
+		ok := signer.Verify(v, SignTypeSHA256, false,
 			func(publicKey string) (privateKey string, err error) {
 				return secretKey, nil
 			},
@@ -261,7 +268,8 @@ func TestSigner_SignSHA512(t *testing.T) {
 	}
 
 	for _, item := range in {
-		sign := signer.Sign(item, publicKey, nonce, ts, SignTypeSHA512, false,
+		v := convert.StringsDictToDict(item)
+		sign := signer.Sign(v, publicKey, nonce, ts, SignTypeSHA512, false,
 			func(publicKey string) (privateKey string, err error) {
 				return secretKey, nil
 			},
@@ -270,7 +278,7 @@ func TestSigner_SignSHA512(t *testing.T) {
 			},
 		)
 
-		sign2 := signer.SignSHA512(item, publicKey, nonce, ts, false, func(publicKey string) (privateKey string, err error) {
+		sign2 := signer.SignSHA512(v, publicKey, nonce, ts, false, func(publicKey string) (privateKey string, err error) {
 			return secretKey, nil
 		})
 
@@ -281,7 +289,8 @@ func TestSigner_SignSHA512(t *testing.T) {
 
 	// Sign:  will change item (del sign field)
 	for _, item := range expect {
-		ok := signer.Verify(item, SignTypeSHA512, false,
+		v := convert.StringsDictToDict(item)
+		ok := signer.Verify(v, SignTypeSHA512, false,
 			func(publicKey string) (privateKey string, err error) {
 				return secretKey, nil
 			},
@@ -364,7 +373,8 @@ func TestSignSHA256(t *testing.T) {
 	}
 
 	for _, item := range in {
-		sign := SignSHA256(item, publicKey, nonce, ts, false,
+		v := convert.StringsDictToDict(item)
+		sign := SignSHA256(v, publicKey, nonce, ts, false,
 			func(publicKey string) (privateKey string, err error) {
 				return secretKey, nil
 			},
@@ -375,7 +385,8 @@ func TestSignSHA256(t *testing.T) {
 
 	// Sign:  will change item (del sign field)
 	for _, item := range expect {
-		ok := VerifySHA256(item, false,
+		v := convert.StringsDictToDict(item)
+		ok := VerifySHA256(v, false,
 			func(publicKey string) (privateKey string, err error) {
 				return secretKey, nil
 			},

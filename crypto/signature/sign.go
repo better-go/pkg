@@ -1,7 +1,6 @@
 package signature
 
 import (
-	"net/url"
 	"strings"
 	"sync"
 
@@ -71,6 +70,14 @@ type (
 
 	// 签名算法: useMD5/sha256/sha512
 	SignAlgorithmFunc func(data string, privateKey string) (digest string)
+
+	// interface:
+	DictType interface {
+		Encode() string
+		Get(key string) interface{}
+		Set(key string, value interface{})
+		Del(key string)
+	}
 )
 
 func New(publicKeyName string, nonceName string, timestampName string) *Signer {
@@ -100,7 +107,7 @@ func New(publicKeyName string, nonceName string, timestampName string) *Signer {
 
 // 签名生成:
 func (m *Signer) Sign(
-	payload url.Values, // 数据 body
+	payload DictType, // 数据 body
 	publicKey string, // 公钥
 	nonce string, // 随机串
 	timestamp string, // 时间戳
@@ -134,7 +141,7 @@ func (m *Signer) Sign(
 
 // 签名验证:
 func (m *Signer) Verify(
-	data url.Values,
+	data DictType,
 	signType string,
 	toLower bool,
 	keyFn PrivateKeyFunc,
@@ -153,14 +160,25 @@ func (m *Signer) Verify(
 	timestamp := data.Get(m.timestampName)
 
 	// new sign:
-	newSign := m.Sign(data, publicKey, nonce, timestamp, signType, toLower, keyFn, signFn)
+	newSign := m.Sign(
+		data,
+		publicKey.(string),
+		nonce.(string),
+		timestamp.(string),
+		signType,
+		toLower,
+		keyFn,
+		signFn,
+	)
+
 	log.Debugf("verify: old sign=%v, new sign=%v", sign, newSign)
 	return sign == newSign
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-func (m *Signer) SignMD5(payload url.Values,
+func (m *Signer) SignMD5(
+	payload DictType,
 	publicKey string,
 	nonce string,
 	timestamp string,
@@ -182,7 +200,7 @@ func (m *Signer) SignMD5(payload url.Values,
 }
 
 func (m *Signer) VerifyMD5(
-	data url.Values,
+	data DictType,
 	toLower bool,
 	keyFn PrivateKeyFunc,
 ) bool {
@@ -201,7 +219,7 @@ func (m *Signer) VerifyMD5(
 
 // sign with SHA256:
 func (m *Signer) SignSHA256(
-	payload url.Values, // 数据
+	payload DictType, // 数据
 	publicKey string, // 公钥
 	nonce string, // 随机串
 	timestamp string, // 时间戳
@@ -223,7 +241,7 @@ func (m *Signer) SignSHA256(
 }
 
 func (m *Signer) VerifySHA256(
-	data url.Values,
+	data DictType,
 	toLower bool,
 	keyFn PrivateKeyFunc,
 ) bool {
@@ -241,7 +259,7 @@ func (m *Signer) VerifySHA256(
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // sign with SHA512:
-func (m *Signer) SignSHA512(payload url.Values,
+func (m *Signer) SignSHA512(payload DictType,
 	publicKey string,
 	nonce string,
 	timestamp string,
@@ -263,7 +281,7 @@ func (m *Signer) SignSHA512(payload url.Values,
 }
 
 func (m *Signer) VerifySHA512(
-	data url.Values,
+	data DictType,
 	toLower bool,
 	keyFn PrivateKeyFunc,
 ) bool {
@@ -305,7 +323,7 @@ func (m *Signer) privateKey(publicKey string, keyFn PrivateKeyFunc) (privateKey 
 }
 
 // 参数打包:
-func (m *Signer) pack(payload url.Values, publicKey string, nonce string, timestamp string, signType string) url.Values {
+func (m *Signer) pack(payload DictType, publicKey string, nonce string, timestamp string, signType string) DictType {
 	payload.Set(m.publicKeyName, publicKey)
 	payload.Set(m.nonceName, nonce)
 	payload.Set(m.timestampName, timestamp)
@@ -323,7 +341,7 @@ func (m *Signer) pack(payload url.Values, publicKey string, nonce string, timest
 
 // use default field name:
 func SignSHA256(
-	payload url.Values, // 数据
+	payload DictType, // 数据
 	publicKey string, // 公钥
 	nonce string, // 随机串
 	timestamp string, // 时间戳
@@ -337,7 +355,7 @@ func SignSHA256(
 
 // use default field name:
 func VerifySHA256(
-	data url.Values, // 数据
+	data DictType, // 数据
 	toLower bool, // 是否转小写
 	keyFn PrivateKeyFunc, // 私钥获取方法
 ) bool {
