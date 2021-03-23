@@ -29,7 +29,7 @@
 go get -u -v github.com/better-go/pkg
 
 # use specific tag:
-go get -u -v github.com/better-go/pkg@v0.1.13
+go get -u -v github.com/better-go/pkg@v0.1.14
 
 ```
 
@@ -84,9 +84,14 @@ func Example() {
     - [x] xss: 预防 xss 校验
 - [x] `time`: 大量时间方法扩展
     - 生成时间戳
+- [x] [container](container): 扩展数据类型
+    - [dict](container/dict/dict.go): 字典数据类型
+        - [StringDict](container/dict/string.go): `map[string]string` 扩展, 支持生成 `url encode string`
+        - [Dict](): `map[string]interface{}` 扩展
 - [x] [convert](convert): 数据格式转换工具
     - [string](convert/string.go): `string to int`, `int to string`
     - [struct](convert/struct.go): `struct` 转换成 `map[string][]string`
+    - [map](convert/map.go): `map[string][]string` 转换成 `map[string]string`
 - [x] [crypto](crypto)`: 加密/解密工具
     - [x] [signature](crypto/signature/sign.go): 通用签名机制: 生成/验证 - 支持 `md5/sha256/sha512` + `nonce` + `ts`
     - [x] [password](crypto/password.go): 密码: 加密/验证 - 使用 `bcrypt` 算法
