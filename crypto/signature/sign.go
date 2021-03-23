@@ -162,7 +162,7 @@ func (m *Signer) Verify(
 	// new sign:
 	newSign := m.Sign(
 		data,
-		publicKey.(string),
+		publicKey.(string), // 类型转换
 		nonce.(string),
 		timestamp.(string),
 		signType,
