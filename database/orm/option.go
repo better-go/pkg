@@ -245,7 +245,9 @@ func (m *Options) autoCreatedFields(scope *gorm.Scope) {
 		for _, item := range tsFields {
 			if field, ok := scope.FieldByName(item); ok {
 				if field.IsBlank {
-					field.Set(now)
+					if err := field.Set(now); err != nil {
+						log.Errorf("orm autoCreatedFields error, %+v, %v", field, err)
+					}
 				}
 			}
 		}
@@ -254,7 +256,9 @@ func (m *Options) autoCreatedFields(scope *gorm.Scope) {
 		if deleted, ok := scope.FieldByName(m.IsDeletedName); ok {
 			if deleted.IsBlank {
 				zeroTs := zeroTime() // default zero time
-				deleted.Set(zeroTs)
+				if err := deleted.Set(zeroTs); err != nil {
+					log.Errorf("orm autoCreatedFields error, %+v, %v", deleted, err)
+				}
 			}
 		}
 	}
@@ -263,19 +267,8 @@ func (m *Options) autoCreatedFields(scope *gorm.Scope) {
 // auto update:
 func (m *Options) autoUpdatedFields(scope *gorm.Scope) {
 	if _, ok := scope.Get("gorm:update_column"); !ok {
-		scope.SetColumn(m.UpdatedTsName, gorm.NowFunc())
+		if err := scope.SetColumn(m.UpdatedTsName, gorm.NowFunc()); err != nil {
+			log.Errorf("orm autoUpdatedFields error: %v", err)
+		}
 	}
-}
-
-/////////////////////////////////////////////////////////////////////////////////////
-
-//
-// log for orm:
-//
-type logAdapter struct {
-}
-
-func (l logAdapter) Print(v ...interface{}) {
-	//log.Infof(strings.Repeat("%v ", len(v)), v...)
-	log.Info(v...)
 }
