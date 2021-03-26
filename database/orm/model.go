@@ -13,6 +13,8 @@ ref:
 */
 
 type Model struct {
+	SqlBuilderMixin // gen sql:
+
 	ID        uint64    `db:"id"         gorm:"primary_key; type:int(11) unsigned; NOT NULL; AUTO_INCREMENT;                                                        COMMENT:'自增主键' "`
 	CreatedAt time.Time `db:"created_at" gorm:"index;       type:timestamp;        NOT NULL;                 DEFAULT:CURRENT_TIMESTAMP;                             COMMENT:'创建时间' "`
 	UpdatedAt time.Time `db:"updated_at" gorm:"index;       type:timestamp;        NOT NULL;                 DEFAULT:CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP; COMMENT:'更新时间' "`
@@ -22,6 +24,8 @@ type Model struct {
 
 // user model:
 type UserModel struct {
+	SqlBuilderMixin // gen sql:
+
 	ID        uint64    `db:"id"         gorm:"primary_key; type:int(11) unsigned; NOT NULL; AUTO_INCREMENT;                                                        COMMENT:'自增主键' "`
 	UserID    uint64    `db:"user_d"     gorm:"index;       type:BIGINT(20) unsigned; NOT NULL;              DEFAULT:'0';                                           COMMENT:'用户 ID' "` // 用户 ID
 	CreatedAt time.Time `db:"created_at" gorm:"index;       type:timestamp;        NOT NULL;                 DEFAULT:CURRENT_TIMESTAMP;                             COMMENT:'创建时间' "`
@@ -31,6 +35,8 @@ type UserModel struct {
 
 // 唯一索引:
 type UserUniqueModel struct {
+	SqlBuilderMixin // gen sql:
+
 	ID        uint64    `db:"id"         gorm:"primary_key; type:int(11) unsigned; NOT NULL; AUTO_INCREMENT;                                                        COMMENT:'自增主键' "`
 	UserID    uint64    `db:"user_d"     gorm:"UNIQUE;      type:BIGINT(20) unsigned; NOT NULL;              DEFAULT:'0';                                           COMMENT:'用户 ID' "` // 用户 ID
 	CreatedAt time.Time `db:"created_at" gorm:"index;       type:timestamp;        NOT NULL;                 DEFAULT:CURRENT_TIMESTAMP;                             COMMENT:'创建时间' "`
@@ -40,6 +46,8 @@ type UserUniqueModel struct {
 
 // has status:
 type StatusModel struct {
+	SqlBuilderMixin // gen sql:
+
 	ID        uint64    `db:"id"         gorm:"primary_key; type:int(11) unsigned; NOT NULL; AUTO_INCREMENT;                                                        COMMENT:'自增主键' "`
 	Status    int64     `db:"status"     gorm:"index;       type:int(11);          NOT NULL;                 DEFAULT:'-1';                                          COMMENT:'状态: (-1:无效, 1:正常, >1: 正常中间状态, <-1: 异常中间状态)'; "`
 	CreatedAt time.Time `db:"created_at" gorm:"index;       type:timestamp;        NOT NULL;                 DEFAULT:CURRENT_TIMESTAMP;                             COMMENT:'创建时间' "`
@@ -49,6 +57,8 @@ type StatusModel struct {
 
 // db 事务: 乐观锁
 type TxModel struct {
+	SqlBuilderMixin // gen sql:
+
 	ID        uint64    `db:"id"         gorm:"primary_key; type:int(11) unsigned; NOT NULL; AUTO_INCREMENT;                                                        COMMENT:'自增主键' "`
 	Ver       uint64    `db:"ver"        gorm:"             type:int(11) unsigned; NOT NULL; AUTO_INCREMENT; DEFAULT:'1';                                           COMMENT:'乐观锁版本号' "` // 乐观锁
 	CreatedAt time.Time `db:"created_at" gorm:"index;       type:timestamp;        NOT NULL;                 DEFAULT:CURRENT_TIMESTAMP;                             COMMENT:'创建时间' "`
@@ -58,6 +68,8 @@ type TxModel struct {
 
 // 集大成者:
 type TemplateModel struct {
+	SqlBuilderMixin // gen sql:
+
 	ID        uint64    `db:"id"         gorm:"primary_key; type:int(11) unsigned; NOT NULL; AUTO_INCREMENT;                                                        COMMENT:'自增主键' "`
 	Ver       uint64    `db:"ver"        gorm:"             type:int(11) unsigned; NOT NULL; AUTO_INCREMENT; DEFAULT:'1';                                           COMMENT:'乐观锁版本号' "` // 乐观锁
 	CreatedAt time.Time `db:"created_at" gorm:"index;       type:timestamp;        NOT NULL;                 DEFAULT:CURRENT_TIMESTAMP;                             COMMENT:'创建时间' "`
