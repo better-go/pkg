@@ -28,10 +28,12 @@ func ToMap(in interface{}) map[string]interface{} {
 // FieldNames converts golang struct field into slice string
 func FieldNames(in interface{}) (out []string) {
 	v := reflect.ValueOf(in)
-	return nestParseField(v)
+
+	return nestFieldNames(v) // recursive processor
 }
 
-func nestParseField(v reflect.Value) (out []string) {
+// recursive processor
+func nestFieldNames(v reflect.Value) (out []string) {
 	if v.Kind() == reflect.Ptr {
 		v = v.Elem()
 	}
@@ -49,7 +51,8 @@ func nestParseField(v reflect.Value) (out []string) {
 
 		// recursion: 匿名+结构体类型+has tag
 		if fi.Anonymous && ft.Kind() == reflect.Struct {
-			out = append(out, nestParseField(v.Field(i))...)
+			// recursive processor
+			out = append(out, nestFieldNames(v.Field(i))...)
 		} else {
 			if tagV := fi.Tag.Get(dbTag); tagV != "" {
 				out = append(out, fmt.Sprintf("`%s`", tagV))
