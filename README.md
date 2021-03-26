@@ -29,7 +29,7 @@
 go get -u -v github.com/better-go/pkg
 
 # use specific tag:
-go get -u -v github.com/better-go/pkg@v0.1.15
+go get -u -v github.com/better-go/pkg@v0.1.17
 
 ```
 
