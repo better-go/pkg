@@ -3,12 +3,13 @@ package orm
 import (
 	"time"
 
-	"github.com/better-go/pkg/log"
-	timeEx "github.com/better-go/pkg/time"
 	"github.com/jinzhu/gorm"
 	"gorm.io/driver/mysql"
 	gormV2 "gorm.io/gorm"
 	"gorm.io/gorm/schema"
+
+	"github.com/better-go/pkg/log"
+	timeEx "github.com/better-go/pkg/time"
 )
 
 /*

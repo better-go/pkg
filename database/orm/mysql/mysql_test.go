@@ -4,8 +4,9 @@ import (
 	"testing"
 	"time"
 
-	"github.com/better-go/pkg/database/orm"
 	"gorm.io/gorm"
+
+	"github.com/better-go/pkg/database/orm"
 )
 
 const (

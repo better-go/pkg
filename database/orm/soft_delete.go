@@ -2,9 +2,10 @@ package orm
 
 import (
 	"database/sql/driver"
+	"time"
+
 	"gorm.io/gorm"
 	"gorm.io/gorm/clause"
-	"time"
 )
 
 const (

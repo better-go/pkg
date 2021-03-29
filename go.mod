@@ -20,7 +20,7 @@ require (
 	github.com/google/uuid v1.1.1
 	github.com/gorilla/websocket v1.4.2
 	github.com/jinzhu/gorm v1.9.12
-	github.com/jinzhu/now v1.1.1
+	github.com/jinzhu/now v1.1.2
 	github.com/jordan-wright/email v0.0.0-20200602115436-fd8a7622303e
 	github.com/json-iterator/go v1.1.10 // indirect
 	github.com/machinebox/graphql v0.2.2
@@ -45,7 +45,7 @@ require (
 	golang.org/x/net v0.0.0-20210226172049-e18ecbb05110 // indirect
 	golang.org/x/tools v0.0.0-20200501005904-d351ea090f9b // indirect
 	gorm.io/driver/mysql v0.2.0
-	gorm.io/gorm v0.2.7
+	gorm.io/gorm v1.21.6
 )
 
 replace (
