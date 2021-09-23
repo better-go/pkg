@@ -11,7 +11,7 @@ require (
 	github.com/ambelovsky/gosf-socketio v0.0.0-20201109193639-add9d32f8b19 // indirect
 	github.com/beinan/fastid v0.0.0-20190107221622-c03a08f42c37
 	github.com/cespare/xxhash/v2 v2.1.2 // indirect
-	github.com/codahale/hdrhistogram v0.0.0-00010101000000-000000000000 // indirect
+	github.com/codahale/hdrhistogram v0.0.0-20161010025455-3a0bb77429bd // indirect
 	github.com/cpuguy83/go-md2man/v2 v2.0.1 // indirect
 	github.com/fatih/structs v1.1.0
 	github.com/fsnotify/fsnotify v1.5.1 // indirect
