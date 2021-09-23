@@ -1,0 +1,49 @@
+version: '3'
+
+################################################################################################
+#
+# ref:
+#   - https://taskfile.dev/#/usage
+#
+################################################################################################
+
+
+#
+# global vars: https://taskfile.dev/#/usage?id=variables
+#
+vars:
+  VAR1: "some-var"
+
+#
+# global env: https://taskfile.dev/#/usage?id=environment-variables
+#
+env:
+  ENV1: testing-env
+
+# env file:
+dotenv:
+  - .env
+
+################################################################################################
+
+#
+# task groups: https://taskfile.dev/#/usage?id=task-directory
+#
+tasks:
+  default:
+    cmds:
+      - task: init
+      - task: run
+
+  tidy:
+    cmds:
+      - go mod tidy -v
+
+  update:
+    cmds:
+      - export GOPROXY=https://goproxy.cn; go get -u -v github.com/better-go/pkg@v0.1.17
+
+  push:
+    cmds:
+      - git push origin master --tags
+
