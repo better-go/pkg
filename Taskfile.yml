@@ -46,6 +46,14 @@ tasks:
     cmds:
       - cp .env.local .env
 
+  clean:
+    cmds:
+      - go clean --modcache
+
+  download:
+    cmds:
+      - go mod download
+
   tidy:
     cmds:
       - go mod tidy -v
