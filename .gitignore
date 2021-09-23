@@ -46,3 +46,5 @@ tmp/
 
 # goreleaser artifacts
 dist/
+
+.env

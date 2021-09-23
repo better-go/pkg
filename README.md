@@ -112,6 +112,27 @@ func Example() {
 - https://github.com/better-go/pkg/wiki
 - go 编程规范
 
+## development:
+
+- setup:
+
+```bash
+
+# required tool:
+brew install go-task/tap/go-task
+
+# this project root folder:
+cd pkg/
+
+# init:
+task init
+
+# get go pkg:
+task tidy
+
+```
+
+
 ## reference:
 
 - uber.log
