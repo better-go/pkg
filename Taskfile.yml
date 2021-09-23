@@ -36,6 +36,12 @@ tasks:
       - task: tidy
       - task: run
 
+
+  install:
+    cmds:
+      - brew install go
+      - go install github.com/oligot/go-mod-upgrade
+
   init:
     cmds:
       - cp .env.local .env
@@ -44,14 +50,26 @@ tasks:
     cmds:
       - go mod tidy -v
 
-  update:
+  ################################################################################################
+
+  upgrade:all:
+    cmds:
+      - export GOPROXY=https://goproxy.cn; go-mod-upgrade
+
+  upgrade:one:
     cmds:
       - export GOPROXY=https://goproxy.cn; go get -u -v ${GO_PKG_NAME}
       - task: tidy
 
-  run:
+  dep-check:
+    cmds:
+      - go mod graph
+
+  test:
     cmds:
       - go test all
+
+  ################################################################################################
 
   pull:
     cmds:
@@ -61,6 +79,3 @@ tasks:
   push:
     cmds:
       - git push origin master --tags
-
-
-
