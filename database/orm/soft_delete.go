@@ -2,6 +2,7 @@ package orm
 
 import (
 	"database/sql/driver"
+	"gorm.io/gorm/schema"
 	"time"
 
 	"gorm.io/gorm"
@@ -49,7 +50,8 @@ func (DeletedAt) QueryClauses() []clause.Interface {
 
 // 软删除-删除子句:
 func (n DeletedAt) DeleteClauses() []clause.Interface {
-	return (gorm.DeletedAt)(n).DeleteClauses()
+	// TODO: Need fix here
+	return (gorm.DeletedAt)(n).DeleteClauses(&schema.Field{})
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
