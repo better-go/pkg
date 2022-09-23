@@ -2,10 +2,18 @@ module github.com/better-go/pkg/x/go-micro
 
 go 1.18
 
-replace github.com/better-go/pkg/log => ../../log
+//replace github.com/better-go/pkg/log => ../../log
+
+replace (
+	github.com/codahale/hdrhistogram => github.com/HdrHistogram/hdrhistogram-go v0.9.0
+	// github.com/coreos/go-systemd => github.com/coreos/go-systemd/v22 latest
+	github.com/coreos/go-systemd => github.com/coreos/go-systemd/v22 v22.2.0
+	google.golang.org/grpc => google.golang.org/grpc v1.26.0
+)
 
 require (
-	github.com/better-go/pkg/log v0.0.0-00010101000000-000000000000
+	//github.com/better-go/pkg/log v0.0.0-00010101000000-000000000000
+	github.com/better-go/pkg/log v0.0.0-20220923014918-d5f0ad7ca40e
 	github.com/gin-gonic/gin v1.8.1
 	github.com/micro/go-micro/v2 v2.9.1
 )
@@ -59,8 +67,8 @@ require (
 	github.com/shurcooL/sanitized_anchor_name v1.0.0 // indirect
 	github.com/ugorji/go/codec v1.2.7 // indirect
 	github.com/xanzy/ssh-agent v0.2.1 // indirect
-	go.uber.org/atomic v1.7.0 // indirect
-	go.uber.org/multierr v1.6.0 // indirect
+	go.uber.org/atomic v1.9.0 // indirect
+	go.uber.org/multierr v1.8.0 // indirect
 	go.uber.org/zap v1.23.0 // indirect
 	golang.org/x/crypto v0.0.0-20210711020723-a769d52b0f97 // indirect
 	golang.org/x/net v0.0.0-20210226172049-e18ecbb05110 // indirect
