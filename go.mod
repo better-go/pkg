@@ -16,9 +16,7 @@ require (
 	github.com/better-go/pkg/os v0.0.0-20220923014918-d5f0ad7ca40e
 	github.com/better-go/pkg/time v0.0.0-20220923014918-d5f0ad7ca40e
 	github.com/fatih/structs v1.1.0
-	github.com/go-redis/redis/v8 v8.11.5
 	github.com/gocarina/gocsv v0.0.0-20220914091333-ceebdd90b590
-	github.com/gomodule/redigo v1.8.9
 	github.com/google/go-querystring v1.1.0
 	github.com/google/uuid v1.3.0
 	github.com/gorilla/websocket v1.5.0
@@ -46,9 +44,7 @@ require (
 	github.com/ambelovsky/gosf-socketio v0.0.0-20220810204405-0f97832ec7af // indirect
 	github.com/aymerick/douceur v0.2.0 // indirect
 	github.com/bitly/go-simplejson v0.5.0 // indirect
-	github.com/cespare/xxhash/v2 v2.1.2 // indirect
 	github.com/davecgh/go-spew v1.1.1 // indirect
-	github.com/dgryski/go-rendezvous v0.0.0-20200823014737-9f7001d12a5f // indirect
 	github.com/eapache/go-resiliency v1.3.0 // indirect
 	github.com/eapache/go-xerial-snappy v0.0.0-20180814174437-776d5712da21 // indirect
 	github.com/eapache/queue v1.1.0 // indirect
