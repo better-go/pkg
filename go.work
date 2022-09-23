@@ -2,6 +2,7 @@ go 1.18
 
 // monorepo, workspace:
 use (
+	.  // root dir
 	./database
 	./errors
 	./log
