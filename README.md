@@ -1,6 +1,5 @@
 # pkg
 
-
 [![Go Version](https://img.shields.io/github/go-mod/go-version/better-go/pkg?filename=go.mod)](https://github.com/better-go/pkg/blob/master/go.mod)
 [![Go Report Card](https://goreportcard.com/badge/github.com/better-go/pkg)](https://goreportcard.com/report/github.com/better-go/pkg)
 [![](https://img.shields.io/github/release/better-go/pkg.svg?label=Release)](https://github.com/better-go/pkg/releases)
@@ -8,11 +7,8 @@
 [![MIT License](https://img.shields.io/github/license/better-go/pkg)](https://github.com/better-go/pkg/blob/master/LICENSE)
 [![Stars](https://img.shields.io/github/stars/better-go/pkg?style=social)](https://img.shields.io/github/stars/better-go/pkg?style=social)
 
-
 - [x] golang pkg, common utils
 - [x] 集成各种常用 lib, 开箱即用
-
-
 
 ## related:
 
@@ -21,7 +17,27 @@
 
 ## quickstart:
 
-- install:
+- ✅ 使用 [go.work](go.work) 拆分子包
+    - [log](log)
+    - [database](database)
+    - [x/gin](x/gin)
+    - [x/go-zero](x/go-zero)
+    - [x/go-micro](x/go-micro)
+
+> 快速导包：
+
+- ✅ 导入包：
+
+```go
+import (
+// 子包
+"github.com/better-go/pkg/log"
+
+)
+
+```
+
+- ✅ install:
 
 ```bash
 
@@ -29,26 +45,25 @@
 go get -u -v github.com/better-go/pkg
 
 # use specific tag:
-go get -u -v github.com/better-go/pkg@v0.1.18
+go get -u -v github.com/better-go/pkg@v0.2.0
 
 ```
 
-- usage:
+- ✅ usage:
 
 ```golang
 
 import (
-	"github.com/better-go/pkg/random"
+"github.com/better-go/pkg/random"
 )
 
 func Example() {
-	// snowflake id:
-	userID := random.SnowFlakeID()
-	fmt.Printf("userID:%v\n", userID)
+// snowflake id:
+userID := random.SnowFlakeID()
+fmt.Printf("userID:%v\n", userID)
 }
 
 ```
-
 
 ## features:
 
@@ -132,7 +147,6 @@ task tidy
 
 ```
 
-
 ## reference:
 
 - uber.log
@@ -140,7 +154,6 @@ task tidy
 - 目录风格, 参考 go 标准库, 以及 `x` 库
     - https://pkg.go.dev/search?q=golang.org/x
 - https://github.com/golang/text
-
 
 ```bash
 
