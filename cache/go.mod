@@ -3,7 +3,7 @@ module github.com/better-go/pkg/cache
 go 1.18
 
 require (
-	github.com/better-go/pkg/time v0.0.0-20220923014918-d5f0ad7ca40e
+	github.com/better-go/pkg/time v0.0.0-20220923022650-d97906983f30
 	github.com/go-redis/redis/v8 v8.11.5
 	github.com/gomodule/redigo v1.8.9
 	github.com/pkg/errors v0.9.1

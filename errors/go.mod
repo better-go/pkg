@@ -5,7 +5,7 @@ go 1.18
 //replace github.com/better-go/pkg/log => ../log
 
 require (
-	github.com/better-go/pkg/log v0.0.0-20220923022650-d97906983f30
+	github.com/better-go/pkg/log v0.0.0-20220923023940-c922e8210ef0
 	github.com/micro/go-micro/v2 v2.9.1
 )
 

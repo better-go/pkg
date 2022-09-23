@@ -1,5 +1,5 @@
-github.com/better-go/pkg/time v0.0.0-20220923014918-d5f0ad7ca40e h1:q8Ov2nE/L5NiBr+TB7DNHgSyD38mxEMqesIyFjQtdnQ=
-github.com/better-go/pkg/time v0.0.0-20220923014918-d5f0ad7ca40e/go.mod h1:t3EyHQT4hdXYA6BtozIzna1p63xRKlc0wRBJcGI4SGc=
+github.com/better-go/pkg/time v0.0.0-20220923022650-d97906983f30 h1:vLPT/f0fv2A4vUijRhSPm2x3qlU2PvQVuj1hAwd3MeA=
+github.com/better-go/pkg/time v0.0.0-20220923022650-d97906983f30/go.mod h1:t3EyHQT4hdXYA6BtozIzna1p63xRKlc0wRBJcGI4SGc=
 github.com/cespare/xxhash/v2 v2.1.2 h1:YRXhKfTDauu4ajMg1TPgFO5jnlC2HCbmLXMcTG5cbYE=
 github.com/cespare/xxhash/v2 v2.1.2/go.mod h1:VGX0DQ3Q6kWi7AoAeZDth3/j3BFtOZR5XLFGgcrjCOs=
 github.com/davecgh/go-spew v1.1.0 h1:ZDRjVQ15GmhC3fiQ8ni8+OwkZQO4DARzQgrnXU1Liz8=

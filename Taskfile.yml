@@ -57,15 +57,17 @@ tasks:
   tidy:
     cmds:
       - go mod tidy -v
+      - cd time; go mod tidy -v
+
       - cd log; go mod tidy -v
       - cd errors; go mod tidy -v
       - cd cache; go mod tidy -v
       - cd os; go mod tidy -v
-      - cd time; go mod tidy -v
-      - cd database; go mod tidy -v
+
       - cd x/gin; go mod tidy -v
       - cd x/go-zero; go mod tidy -v
       - cd x/go-micro; go mod tidy -v
+      - cd database; go mod tidy -v
 
   ################################################################################################
 
