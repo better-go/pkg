@@ -2,19 +2,19 @@ module github.com/better-go/pkg
 
 go 1.18
 
-replace github.com/better-go/pkg/log => ./log
-
-replace github.com/better-go/pkg/os => ./os
-
-replace github.com/better-go/pkg/time => ./time
+//replace github.com/better-go/pkg/log => ./log
+//
+//replace github.com/better-go/pkg/os => ./os
+//
+//replace github.com/better-go/pkg/time => ./time
 
 require (
 	github.com/Shopify/sarama v1.36.0
 	github.com/ambelovsky/gosf v0.0.0-20201109201340-237aea4d6109
 	github.com/beinan/fastid v0.0.0-20190107221622-c03a08f42c37
-	github.com/better-go/pkg/log v0.0.0-00010101000000-000000000000
-	github.com/better-go/pkg/os v0.0.0-00010101000000-000000000000
-	github.com/better-go/pkg/time v0.0.0-00010101000000-000000000000
+	github.com/better-go/pkg/log v0.0.0-20220923014918-d5f0ad7ca40e
+	github.com/better-go/pkg/os v0.0.0-20220923014918-d5f0ad7ca40e
+	github.com/better-go/pkg/time v0.0.0-20220923014918-d5f0ad7ca40e
 	github.com/fatih/structs v1.1.0
 	github.com/go-redis/redis/v8 v8.11.5
 	github.com/gocarina/gocsv v0.0.0-20220914091333-ceebdd90b590
