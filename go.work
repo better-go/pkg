@@ -1,0 +1,13 @@
+go 1.18
+
+// monorepo, workspace:
+use (
+	./database
+	./errors
+	./log
+	./os
+	./time
+	./x/gin
+	./x/go-micro
+	./x/go-zero
+)
