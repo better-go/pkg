@@ -58,6 +58,7 @@ tasks:
     cmds:
       - go mod tidy -v
       - cd log; go mod tidy -v
+      - cd errors; go mod tidy -v
       - cd cache; go mod tidy -v
       - cd os; go mod tidy -v
       - cd time; go mod tidy -v

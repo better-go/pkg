@@ -2,10 +2,10 @@ module github.com/better-go/pkg/errors
 
 go 1.18
 
-replace github.com/better-go/pkg/log => ../log
+//replace github.com/better-go/pkg/log => ../log
 
 require (
-	github.com/better-go/pkg/log v0.0.0-00010101000000-000000000000
+	github.com/better-go/pkg/log v0.0.0-20220923022650-d97906983f30
 	github.com/micro/go-micro/v2 v2.9.1
 )
 
