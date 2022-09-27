@@ -53,7 +53,9 @@ func BenchmarkGen20BitDigit(b *testing.B) {
 func BenchmarkGen20BitUUID(b *testing.B) {
 	b.ResetTimer()
 	for i := 0; i < b.N; i++ {
-		conflictDetect(Gen20BitUUID())
+		uid := Gen20BitUUID()
+		fmt.Println("gen 20 bit uuid: ", uid)
+		conflictDetect(uid)
 	}
 }
 
@@ -61,12 +63,24 @@ func BenchmarkGen20BitUUID(b *testing.B) {
 func BenchmarkGen32BitUUID4(b *testing.B) {
 	b.ResetTimer()
 	for i := 0; i < b.N; i++ {
-		conflictDetect(Gen32BitUUID4())
+		uid := Gen32BitUUID4()
+		fmt.Println("gen 32 bit uuid: ", uid)
+		conflictDetect(uid)
 	}
 }
 
 func TestGen20BitUUIDUpper(t *testing.T) {
 	for i := 0; i < 10; i++ {
 		t.Log("uuid:", Gen20BitUUID())
+	}
+}
+
+func BenchmarkGenUIDPair(b *testing.B) {
+	b.ResetTimer()
+	for i := 0; i < b.N; i++ {
+		uid20, uid32 := GenUIDPair()
+		fmt.Println("gen uid pair: ", uid20, uid32)
+		conflictDetect(uid20)
+		conflictDetect(uid32)
 	}
 }

@@ -27,8 +27,9 @@ func Gen36BitUUID4() string {
 
 // 32bit: 推荐: 安全, 无冲突(详见 Benchmark test)
 func Gen32BitUUID4() string {
-	id := Gen36BitUUID4()
-	return strings.ReplaceAll(id, "-", "")
+	raw := Gen36BitUUID4()
+	uid := strings.ReplaceAll(raw, "-", "")
+	return strings.ToUpper(uid)
 }
 
 // 20bit: 推荐: 安全, 无冲突(详见 Benchmark test)
@@ -36,20 +37,25 @@ func Gen20BitUUID() string {
 	return strings.ToUpper(Gen20BitUUIDLower())
 }
 
-// 默认全小写:
+// Gen20BitUUIDLower 默认全小写:
 func Gen20BitUUIDLower() string {
 	guid := xid.New()
 	return guid.String()
 }
 
+// GenUIDPair 生成一对ID(publicKey, secretKey)
+func GenUIDPair() (string, string) {
+	return Gen20BitUUID(), Gen32BitUUID4()
+}
+
 //////////////////////////////////////////////////////
 
-// Random (Version 4) UUID.
+// GenUUID4 Random (Version 4) UUID.
 func GenUUID4() uuid.UUID {
 	return uuid.New()
 }
 
-// 此方法不要用, 冲突率非常高, 参看 Benchmark test
+// Gen20BitDigit TODO X: 此方法不要用, 冲突率非常高, 参看 Benchmark test
 func Gen20BitDigit() string {
 	var b bytes.Buffer
 	b.WriteString(fmt.Sprintf("%05d", rnd.Int63n(99999)))
@@ -58,7 +64,7 @@ func Gen20BitDigit() string {
 	return b.String()
 }
 
-// for verify code <= 6
+// GenDigit for verify code <= 6, 适合生成的短信验证码场景
 func GenDigit(length int32) string {
 	// invalid:
 	if length > 20 {
