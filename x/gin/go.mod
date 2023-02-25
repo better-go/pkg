@@ -9,9 +9,9 @@ go 1.18
 //replace github.com/better-go/pkg/os => ../../os
 
 require (
-	github.com/better-go/pkg/errors v0.0.0-20220923020207-5f663549b1bf
-	github.com/better-go/pkg/log v0.0.0-20220923014918-d5f0ad7ca40e
-	github.com/better-go/pkg/os v0.0.0-20220923014918-d5f0ad7ca40e
+	github.com/better-go/pkg/errors v0.0.0-20220927090409-f56a4571b836
+	github.com/better-go/pkg/log v0.0.0-20220923023940-c922e8210ef0
+	github.com/better-go/pkg/os v0.0.0-20220927090409-f56a4571b836
 	github.com/gin-gonic/gin v1.8.1
 	github.com/micro/go-micro/v2 v2.9.1
 	github.com/pkg/errors v0.9.1
@@ -35,9 +35,9 @@ require (
 	go.uber.org/multierr v1.8.0 // indirect
 	go.uber.org/zap v1.23.0 // indirect
 	golang.org/x/crypto v0.0.0-20220919173607-35f4265a4bc0 // indirect
-	golang.org/x/net v0.0.0-20220826154423-83b083e8dc8b // indirect
-	golang.org/x/sys v0.0.0-20220728004956-3c1f35247d10 // indirect
-	golang.org/x/text v0.3.7 // indirect
+	golang.org/x/net v0.7.0 // indirect
+	golang.org/x/sys v0.5.0 // indirect
+	golang.org/x/text v0.7.0 // indirect
 	google.golang.org/protobuf v1.28.1 // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 )
