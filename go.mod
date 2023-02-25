@@ -12,8 +12,8 @@ require (
 	github.com/Shopify/sarama v1.36.0
 	github.com/ambelovsky/gosf v0.0.0-20201109201340-237aea4d6109
 	github.com/beinan/fastid v0.0.0-20190107221622-c03a08f42c37
-	github.com/better-go/pkg/log v0.0.0-20220923014918-d5f0ad7ca40e
-	github.com/better-go/pkg/os v0.0.0-20220923014918-d5f0ad7ca40e
+	github.com/better-go/pkg/log v0.0.0-20220923023940-c922e8210ef0
+	github.com/better-go/pkg/os v0.0.0-20220927090409-f56a4571b836
 	github.com/better-go/pkg/time v0.0.0-20220923014918-d5f0ad7ca40e
 	github.com/fatih/structs v1.1.0
 	github.com/gocarina/gocsv v0.0.0-20220914091333-ceebdd90b590
@@ -77,12 +77,11 @@ require (
 	github.com/rogpeppe/go-internal v1.8.0 // indirect
 	github.com/uber/jaeger-lib v2.4.1+incompatible // indirect
 	go.uber.org/atomic v1.9.0 // indirect
-	go.uber.org/goleak v1.2.0 // indirect
 	go.uber.org/multierr v1.8.0 // indirect
 	go.uber.org/zap v1.23.0 // indirect
-	golang.org/x/net v0.0.0-20220826154423-83b083e8dc8b // indirect
-	golang.org/x/sys v0.0.0-20220728004956-3c1f35247d10 // indirect
-	golang.org/x/text v0.3.7 // indirect
+	golang.org/x/net v0.7.0 // indirect
+	golang.org/x/sys v0.5.0 // indirect
+	golang.org/x/text v0.7.0 // indirect
 	google.golang.org/grpc v1.49.0 // indirect
 	google.golang.org/protobuf v1.28.1 // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
